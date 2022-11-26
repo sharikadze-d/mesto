@@ -13,7 +13,7 @@
 <body class="page">
   <div class="page__inner">
     <header class="header">
-      <a href="#" class="logo"><img src="./images/logo.svg" alt="Логотип Mesto" class="logo__image"></a>
+      <a href="#" class="logo opacity"><img src="./images/logo.svg" alt="Логотип Mesto" class="logo__image"></a>
     </header>
     <main class="content">
       <section class="profile">
@@ -22,12 +22,12 @@
           <div class="profile__info">
             <div class="profile__name-wrapper">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button"></button>
+              <button class="profile__edit-button opacity"></button>
             </div>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button opacity"></button>
       </section>
 
       <section class="elements">
@@ -35,53 +35,53 @@
           <img src="./images/elements-karachaevsk.jpg" alt="Старинная крепость" class="elements__image">
           <figcaption class="elements__caption">
             <h2 class="elements__title">Карачаевск</h2>
-            <button class="elements__like-btn"></button>
+            <button class="elements__like-btn opacity"></button>
           </figcaption>
         </figure>
         <figure class="elements__element">
           <img src="./images/elements-elbrus.jpg" alt="Гора на закате" class="elements__image">
           <figcaption class="elements__caption">
             <h2 class="elements__title">Гора Эльбрус</h2>
-            <button class="elements__like-btn"></button>
+            <button class="elements__like-btn opacity"></button>
           </figcaption>
         </figure>
         <figure class="elements__element">
           <img src="./images/elements-dombai.jpg" alt="Заснеженные горные вершины" class="elements__image">
           <figcaption class="elements__caption">
             <h2 class="elements__title">Домбай</h2>
-            <button class="elements__like-btn"></button>
+            <button class="elements__like-btn opacity"></button>
           </figcaption>
         </figure>
         <figure class="elements__element">
           <img src="./images/elements-elbrus.jpg" alt="Гора на закате" class="elements__image">
           <figcaption class="elements__caption">
             <h2 class="elements__title">Гора Эльбрус</h2>
-            <button class="elements__like-btn"></button>
+            <button class="elements__like-btn opacity"></button>
           </figcaption>
         </figure>
         <figure class="elements__element">
           <img src="./images/elements-dombai.jpg" alt="Заснеженные горные вершины" class="elements__image">
           <figcaption class="elements__caption">
             <h2 class="elements__title">Домбай</h2>
-            <button class="elements__like-btn"></button>
+            <button class="elements__like-btn opacity"></button>
           </figcaption>
         </figure>
         <figure class="elements__element">
           <img src="./images/elements-karachaevsk.jpg" alt="Старинная крепость" class="elements__image">
           <figcaption class="elements__caption">
             <h2 class="elements__title">Карачаево-Черкесия</h2>
-            <button class="elements__like-btn"></button>
+            <button class="elements__like-btn opacity"></button>
           </figcaption>
         </figure>
       </section>
 
-      <section class="popup">
-        <form class="popup__form">
+      <section class="popup popup_opened">
+        <form class="popup__container">
           <h3 class="popup__title">Редактировать профиль</h3>
           <input type="text" name="name" class="popup__item">
           <input type="text" name="description" class="popup__item">
-          <button class="popup__save-btn">Сохранить</button>
-          <button class="popup__close-btn"></button>
+          <button class="popup__save-btn opacity__form">Сохранить</button>
+          <button class="popup__close-btn opacity"></button>
         </form>
       </section>
     </main>

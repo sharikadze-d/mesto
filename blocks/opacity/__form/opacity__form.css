@@ -1,0 +1,8 @@
+.opacity__form {
+  transition: opacity .2s linear;
+  cursor: pointer;
+}
+
+.opacity__form:hover {
+  opacity: .8;
+}
