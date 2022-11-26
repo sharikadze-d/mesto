@@ -8,3 +8,12 @@
   top: -40px;
   right: -40px;
 }
+
+@media screen and (max-width: 720px) {
+  .popup__close-btn {
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: -36px;
+  }
+}
