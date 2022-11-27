@@ -8,12 +8,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 400px;
 }
 
 @media screen and (max-width: 950px) {
   .profile__name {
     font-size: 27px;
     line-height: 33px;
+    max-width: 300px;
   }
 }
 
@@ -22,5 +24,6 @@
     text-align: center;
     margin-right: 0;
     margin-bottom: 7px;
+    max-width: 230px;
   }
 }
