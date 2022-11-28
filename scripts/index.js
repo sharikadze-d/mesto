@@ -14,10 +14,10 @@ const closeButton = formElement.querySelector('.popup__close-btn');
 editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
 
-popup.addEventListener('click', closePopup);
-formElement.addEventListener('click', function(evt) {
-  evt.stopPropagation();
-})
+// popup.addEventListener('click', closePopup);
+// formElement.addEventListener('click', function(evt) {
+//   evt.stopPropagation();
+// })
 
 formElement.addEventListener('submit', formSubmitHandler); 
 
@@ -31,8 +31,8 @@ function closePopup() {
 }
 
 function popupAutoFill() {
-  nameInput.setAttribute('value', nameField.textContent);
-  jobInput.setAttribute('value', descriptionField.textContent);
+  nameInput.value = nameField.textContent;
+  jobInput.value = descriptionField.textContent;
 }
 
 function formSubmitHandler (evt) {
