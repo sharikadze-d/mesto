@@ -5,6 +5,7 @@
   border: 2px solid white;
   background: #000 url('../../../images/profile-add-btn.svg') no-repeat center / contain;
   background-size: 22px 22px;
+  border-radius: 2px;
 }
 
 @media screen and (max-width: 700px) {

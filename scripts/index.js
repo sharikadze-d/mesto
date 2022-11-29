@@ -5,10 +5,10 @@ const nameField = document.querySelector('.profile__name');
 const descriptionField = document.querySelector('.profile__description');
 
 const popup = document.querySelector('.popup');
-const formElement = popup.querySelector('.popup__container');
+const formElement = popup.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__item[name="name"]');
 const jobInput = formElement.querySelector('.popup__item[name="description"]');
-const closeButton = formElement.querySelector('.popup__close-btn');
+const closeButton = popup.querySelector('.popup__close-btn');
 // const saveButton = formElement.querySelector('.popup__save-btn');
 
 editButton.addEventListener('click', openPopup);
