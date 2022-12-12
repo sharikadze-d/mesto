@@ -7,9 +7,10 @@ const descriptionField = document.querySelector('.profile__description');
 const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCardAddition = document.querySelector('.popup_type_card');
-const formElement = popup.querySelector('.popup__form');
-const nameInput = formElement.querySelector('.popup__item[name="name"]');
-const jobInput = formElement.querySelector('.popup__item[name="description"]');
+const formElementProfile = popupProfile.querySelector('.popup__form');
+const formElementCard = popupCardAddition.querySelector('.popup__form');
+const nameInput = formElementProfile.querySelector('.popup__item[name="name"]');
+const jobInput = formElementProfile.querySelector('.popup__item[name="description"]');
 const closeButtons = document.querySelectorAll('.popup__close-btn');
 const cardTemplate = document.querySelector('#card');
 const cardsContainer = document.querySelector('.elements');
@@ -75,11 +76,10 @@ function openPopup(popup) {
 
 //Закрыть попап
 function closePopup(evt) {
-  const target = evt.target;
-  target.parentElement.parentElement.classList.remove('popup_opened');
+  evt.target.closest('.popup').remove('popup_opened');
 }
 
-//Обработчик отправки формы "Профиль"
+//Обработчик отправки формы редактирования профиля
 function formSubmitHandler (evt) {
     evt.preventDefault(); 
     
@@ -89,6 +89,20 @@ function formSubmitHandler (evt) {
     closePopup();
 }
 
+//Обработчик отправки формы добавления карточки
+function cardFormSubmitHandler (evt) {
+  evt.preventDefault();
+  const linkField = document.querySelector('.popup__item[name="img-link"]');
+  const placeField = document.querySelector('.popup__item[name="place"]');
+  
+  const cardData = {};
+  cardData.link = linkField.value;
+  cardData.name = placeField.value;
+
+  const card = createCard(cardData.link, cardData.name);
+  renderCard(card);
+  closePopup(evt);
+}
 //Добавление слушателя событий на все кнопки закрытия
 function addCloseButtonsListener (buttonsCollection) {
   buttonsCollection.forEach(button => {
@@ -103,6 +117,6 @@ addButton.addEventListener('click', () => openPopup(popupCardAddition));
 // closeButton.addEventListener('click', closePopup);
 addCloseButtonsListener(closeButtons);
 
-formElement.addEventListener('submit', formSubmitHandler); 
-
+formElementProfile.addEventListener('submit', formSubmitHandler); 
+formElementCard.addEventListener('submit', cardFormSubmitHandler);
 
