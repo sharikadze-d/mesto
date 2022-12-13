@@ -42,7 +42,7 @@ const initialCards = [
   }
 ];
 
-//Создание карточки по шаблону template с заданными значениями
+//Создание карточки по шаблону template с заданными значениями и слушателями событий
 function createCard (link, name) {
   const card = cardTemplate.content.querySelector('.element').cloneNode(true);
   card.querySelector('.element__image').src = link;
@@ -53,7 +53,15 @@ function createCard (link, name) {
     likeButton.classList.toggle('element__like-btn_active');
   })
 
+  const deleteButton = card.querySelector('.element__delete-btn');
+  deleteButton.addEventListener('click', deleteCard);
+
   return card;
+}
+
+//Удаление карточки
+function deleteCard(evt) {
+  evt.target.closest('.element').remove();
 }
 
 //Рендер карточки на страницу
@@ -124,7 +132,6 @@ renderInitialCards(initialCards);
 
 editButton.addEventListener('click',() => openPopup(popupProfile));
 addButton.addEventListener('click',() => openPopup(popupCardAddition));
-// closeButton.addEventListener('click', closePopup);
 addCloseButtonsListener(closeButtons);
 
 formElementProfile.addEventListener('submit', formSubmitHandler); 
