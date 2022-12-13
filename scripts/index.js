@@ -47,6 +47,12 @@ function createCard (link, name) {
   const card = cardTemplate.content.querySelector('.element').cloneNode(true);
   card.querySelector('.element__image').src = link;
   card.querySelector('.element__title').textContent = name;
+
+  const likeButton = card.querySelector('.element__like-btn');
+  likeButton.addEventListener('click', () => {
+    likeButton.classList.toggle('element__like-btn_active');
+  })
+
   return card;
 }
 
@@ -76,7 +82,7 @@ function openPopup(popup) {
 
 //Закрыть попап
 function closePopup(evt) {
-  evt.target.closest('.popup').remove('popup_opened');
+  evt.target.closest('.popup').classList.remove('popup_opened');
 }
 
 //Обработчик отправки формы редактирования профиля
@@ -102,7 +108,11 @@ function cardFormSubmitHandler (evt) {
   const card = createCard(cardData.link, cardData.name);
   renderCard(card);
   closePopup(evt);
+
+  linkField.value = '';
+  placeField.value = '';
 }
+
 //Добавление слушателя событий на все кнопки закрытия
 function addCloseButtonsListener (buttonsCollection) {
   buttonsCollection.forEach(button => {
@@ -113,10 +123,9 @@ function addCloseButtonsListener (buttonsCollection) {
 renderInitialCards(initialCards);
 
 editButton.addEventListener('click',() => openPopup(popupProfile));
-addButton.addEventListener('click', () => openPopup(popupCardAddition));
+addButton.addEventListener('click',() => openPopup(popupCardAddition));
 // closeButton.addEventListener('click', closePopup);
 addCloseButtonsListener(closeButtons);
 
 formElementProfile.addEventListener('submit', formSubmitHandler); 
 formElementCard.addEventListener('submit', cardFormSubmitHandler);
-
