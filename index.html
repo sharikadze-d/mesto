@@ -42,7 +42,7 @@
         <form class="popup__form" name="profile-input-form">
           <h3 class="popup__title">Редактировать профиль</h3>
           <input required type="text" name="name" class="popup__item">
-          <input type="text" name="description" class="popup__item">
+          <input required type="text" name="description" class="popup__item">
           <button type="submit" class="popup__save-btn">Сохранить</button>
       </form>
       </div>
@@ -54,7 +54,7 @@
         <form class="popup__form" name="add-card-input-form">
           <h3 class="popup__title">Новое место</h3>
           <input required placeholder="Название" type="text" name="place" class="popup__item">
-          <input required placeholder="Ссылка на картинку" type="text" name="img-link" class="popup__item">
+          <input required placeholder="Ссылка на картинку" type="url" name="img-link" class="popup__item">
           <button type="submit" class="popup__save-btn">Создать</button>
         </form>
       </div>
@@ -79,7 +79,7 @@
       </div>
     </article>
   </template>
-
+<script src="./scripts/cards.js"></script>
 <script src="./scripts/index.js"></script>
 </body>
 </html>
