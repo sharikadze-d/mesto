@@ -30,56 +30,13 @@
         <button type="button" class="profile__add-button opacity"></button>
       </section>
 
-      <section class="elements">
-        <article class="element">
-          <img src="./images/elements-karachaevsk.jpg" alt="Старинная крепость" class="element__image">
-          <div class="element__caption">
-            <h2 class="element__title">Карачаевск</h2>
-            <button type="button" class="element__like-btn"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/elements-elbrus.jpg" alt="Гора на закате" class="element__image">
-          <div class="element__caption">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" class="element__like-btn"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/elements-dombai.jpg" alt="Заснеженные горные вершины" class="element__image">
-          <div class="element__caption">
-            <h2 class="element__title">Домбай</h2>
-            <button type="button" class="element__like-btn"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/elements-elbrus.jpg" alt="Гора на закате" class="element__image">
-          <div class="element__caption">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" class="element__like-btn"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/elements-dombai.jpg" alt="Заснеженные горные вершины" class="element__image">
-          <div class="element__caption">
-            <h2 class="element__title">Домбай</h2>
-            <button type="button" class="element__like-btn"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img src="./images/elements-karachaevsk.jpg" alt="Старинная крепость" class="element__image">
-          <div class="element__caption">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button type="button" class="element__like-btn"></button>
-          </div>
-        </article>
-      </section>
+      <section class="elements"></section>
     </main>
     <footer class="footer">
       <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_profile">
       <div class="popup__container">
         <button type="button" class="popup__close-btn opacity"></button>
         <form class="popup__form" name="profile-input-form">
@@ -90,7 +47,39 @@
       </form>
       </div>
     </div>
+
+    <div class="popup popup_type_card">
+      <div class="popup__container">
+        <button type="button" class="popup__close-btn opacity"></button>
+        <form class="popup__form" name="add-card-input-form">
+          <h3 class="popup__title">Новое место</h3>
+          <input required placeholder="Название" type="text" name="place" class="popup__item">
+          <input required placeholder="Ссылка на картинку" type="text" name="img-link" class="popup__item">
+          <button type="submit" class="popup__save-btn">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_picture">
+      <figure class="popup__image-container">
+        <button type="button" class="popup__close-btn opacity"></button>
+        <img src="#" alt="" class="popup__image">
+        <figcaption class="popup__description"></figcaption>
+      </figure>
+    </div>
   </div>
+
+  <template id="card">
+    <article class="element">
+      <button type="button" class="element__delete-btn opacity"></button>
+      <img src="" alt="" class="element__image">
+      <div class="element__caption">
+        <h2 class="element__title"></h2>
+        <button type="button" class="element__like-btn"></button>
+      </div>
+    </article>
+  </template>
+
 <script src="./scripts/index.js"></script>
 </body>
 </html>
