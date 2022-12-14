@@ -7,6 +7,8 @@ const descriptionField = document.querySelector('.profile__description');
 const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCardAddition = document.querySelector('.popup_type_card');
+const popupPicture = document.querySelector('.popup_type_picture');
+
 const formElementProfile = popupProfile.querySelector('.popup__form');
 const formElementCard = popupCardAddition.querySelector('.popup__form');
 const nameInput = formElementProfile.querySelector('.popup__item[name="name"]');
@@ -56,7 +58,26 @@ function createCard (link, name) {
   const deleteButton = card.querySelector('.element__delete-btn');
   deleteButton.addEventListener('click', deleteCard);
 
+  const image = card.querySelector('.element__image');
+  image.addEventListener('click', evt => {
+    fillPopupPicture(evt);
+    openPopup(popupPicture);
+  });
+
   return card;
+}
+
+//Наполнение контентом попапа с фотографией
+function fillPopupPicture (evt) {
+  const image = popupPicture.querySelector('.popup__image');
+  const text = popupPicture.querySelector('.popup__description');
+
+  const currentImage = evt.target;
+  const currentText = evt.target.nextElementSibling.querySelector('.element__title');
+
+  image.src = currentImage.src;
+  image.alt = currentText.textContent;
+  text.textContent = currentText.textContent;
 }
 
 //Удаление карточки
@@ -100,7 +121,7 @@ function formSubmitHandler (evt) {
     nameField.textContent = nameInput.value;
     descriptionField.textContent = jobInput.value;
 
-    closePopup();
+    closePopup(evt);
 }
 
 //Обработчик отправки формы добавления карточки
