@@ -58,10 +58,10 @@ function createCard (cardData) {
 function fillPopupPicture (evt) {
   const currentImage = evt.target;
   const currentText = currentImage.alt;
-
+  
   image.src = currentImage.src;
-  image.alt = currentText.textContent;
-  text.textContent = currentText.textContent;
+  image.alt = currentText;
+  text.textContent = currentText;
 }
 
 //Удаление карточки
