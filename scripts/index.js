@@ -95,7 +95,7 @@ function openPopup(popup) {
 //Открыть попап редактирования профиля
 function openProfilePopup() {
   fillPopupProfile();
-  popupProfile.classList.add('popup_opened');
+  openPopup(popupProfile);
 }
 
 //Закрыть попап
