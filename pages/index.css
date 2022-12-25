@@ -43,12 +43,16 @@
 @import url(../blocks/popup/__item/popup__item.css);
 @import url(../blocks/popup/__save-btn/popup__save-btn.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
+@import url(../blocks/button-opacity/button-opacity.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__image-container/popup__image-container.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__description/popup__description.css);
 @import url(../blocks/popup/_type/popup_type_picture.css);
-
+@import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__error/_visible/popup__error_visible.css);
+@import url(../blocks/popup/__item/_type/popup__item_type_error.css);
+@import url(../blocks/popup/__save-btn/_disabled/popup__save-btn_disabled.css);
 
 /* other */
 @import url(../blocks/opacity/opacity.css);

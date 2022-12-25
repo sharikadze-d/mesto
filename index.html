@@ -41,9 +41,11 @@
         <button type="button" class="popup__close-btn opacity"></button>
         <form class="popup__form" name="profile-input-form">
           <h3 class="popup__title">Редактировать профиль</h3>
-          <input required type="text" name="name" class="popup__item">
-          <input required type="text" name="description" class="popup__item">
-          <button type="submit" class="popup__save-btn">Сохранить</button>
+          <input required id="name" type="text" name="name" class="popup__item">
+          <span class="name-error popup__error"></span>
+          <input required id="job" type="text" name="description" class="popup__item">
+          <span class="job-error popup__error"></span>
+          <button type="submit" class="popup__save-btn button-opacity">Сохранить</button>
       </form>
       </div>
     </div>
@@ -53,9 +55,11 @@
         <button type="button" class="popup__close-btn opacity"></button>
         <form class="popup__form" name="add-card-input-form">
           <h3 class="popup__title">Новое место</h3>
-          <input required placeholder="Название" type="text" name="place" class="popup__item">
-          <input required placeholder="Ссылка на картинку" type="url" name="img-link" class="popup__item">
-          <button type="submit" class="popup__save-btn">Создать</button>
+          <input required id="place" placeholder="Название" type="text" name="place" class="popup__item">
+          <span class="place-error popup__error"></span>
+          <input required id="url" placeholder="Ссылка на картинку" type="url" name="img-link" class="popup__item">
+          <span class="url-error popup__error"></span>
+          <button type="submit" class="popup__save-btn button-opacity">Создать</button>
         </form>
       </div>
     </div>
@@ -80,6 +84,7 @@
     </article>
   </template>
 <script src="./scripts/cards.js"></script>
+<script src="./scripts/validation.js"></script>
 <script src="./scripts/index.js"></script>
 </body>
 </html>

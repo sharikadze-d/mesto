@@ -11,13 +11,13 @@
   align-items: center;
   width: 358px;
   height: 50px;
-  transition: opacity .2s linear;
+  /* transition: opacity .2s linear; */
   cursor: pointer;
 }
 
-.popup__save-btn:hover {
+/* .popup__save-btn:hover {
   opacity: .8;
-}
+} */
 
 @media screen and (max-width: 700px) {
   .popup__save-btn {

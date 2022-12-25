@@ -26,6 +26,14 @@ const text = popupPicture.querySelector('.popup__description');
 const cardTemplate = document.querySelector('#card').content.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: 'popup__item',
+  submitButtonSelector: 'popup__save-btn',
+  inactiveButtonClass: 'popup__save-btn_disabled',
+  inputErrorClass: 'popup__item_type_error',
+  errorClass: 'popup__error_visible'
+};
 
 //Создание карточки по шаблону template с заданными значениями и слушателями событий
 function createCard (cardData) {
