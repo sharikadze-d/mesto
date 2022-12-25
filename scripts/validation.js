@@ -10,10 +10,14 @@ function enableValidation(config) {
 //Функия установки слушателей на поля ввода
 function setEventListeners(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement, config);
 
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
+      toggleButtonState(inputList, buttonElement, config);
     })
   })
 }
@@ -25,6 +29,23 @@ function checkInputValidity(formElement, inputElement, config) {
   } else {
     hideInputError(formElement, inputElement, config);
   }
+}
+
+//Функция активации/деактивации кнопки "Сохранить"
+function toggleButtonState(inputList, buttonElement, config) {
+  console.log(hasInvalidInput(inputList));
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(config.inactiveButtonClass);
+  } else {
+    buttonElement.classList.remove(config.inactiveButtonClass);
+  }
+}
+
+//Функия проверки наличия невалидного поля в форме
+function hasInvalidInput(inputList) {
+  return inputList.some(inputElement => {
+    return (!inputElement.validity.valid);
+  });
 }
 
 //Функция делающая видимым текст ошибки
