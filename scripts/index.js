@@ -32,7 +32,8 @@ const validationConfig = {
   submitButtonSelector: '.popup__save-btn',
   inactiveButtonClass: 'popup__save-btn_disabled',
   inputErrorClass: 'popup__item_type_error',
-  errorClass: 'popup__error_visible'
+  errorClass: 'popup__error_visible',
+  buttonOpacity: 'button-opacity'
 };
 
 //Создание карточки по шаблону template с заданными значениями и слушателями событий
@@ -134,8 +135,19 @@ function handleCardFormSubmit (evt) {
   closePopup(popupCardAddition);
 
   formElementCard.reset();
+  disableSubmitButton(formElementCard, validationConfig);
 }
 
+//Функция деактивации кнопки "Сохранить"
+function disableSubmitButton(formElement, config) {
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.classList.remove(config.buttonOpacity)
+  buttonElement.disabled = true;
+}
+
+fillPopupProfile();
 renderInitialCards(initialCards);
 
 buttonOpenProfilePopup.addEventListener('click', openProfilePopup);

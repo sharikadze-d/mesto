@@ -36,8 +36,12 @@ function toggleButtonState(inputList, buttonElement, config) {
   console.log(hasInvalidInput(inputList));
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.classList.remove(config.buttonOpacity)
+    buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.add(config.buttonOpacity)
+    buttonElement.disabled = false;
   }
 }
 
