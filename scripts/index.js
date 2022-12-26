@@ -28,16 +28,6 @@ const text = popupPicture.querySelector('.popup__description');
 const cardTemplate = document.querySelector('#card').content.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
 
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__save-btn',
-  inactiveButtonClass: 'popup__save-btn_disabled',
-  inputErrorClass: 'popup__item_type_error',
-  errorClass: 'popup__error_visible',
-  buttonOpacity: 'button-opacity'
-};
-
 //Создание карточки по шаблону template с заданными значениями и слушателями событий
 function createCard (cardData) {
   const card = cardTemplate.cloneNode(true);
@@ -101,6 +91,7 @@ function fillPopupProfile() {
 //Открыть попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 //Открыть попап редактирования профиля
@@ -112,6 +103,7 @@ function openProfilePopup() {
 //Закрыть попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 //Обработчик отправки формы редактирования профиля
@@ -162,6 +154,15 @@ function setOverlayListeners(popupList) {
 function closePopupOverlayClick(evt) {
   if(evt.target === evt.currentTarget) {
     closePopup(evt.target.closest('.popup'));
+  }
+}
+
+//Функция закрытия попапа при нажатии на Esc
+function closePopupByEsc(evt) {
+  const popup = document.querySelector('.popup_opened');
+
+  if (evt.key === 'Escape') {
+    closePopup(popup);
   }
 }
 
