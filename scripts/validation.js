@@ -33,7 +33,6 @@ function checkInputValidity(formElement, inputElement, config) {
 
 //Функция активации/деактивации кнопки "Сохранить"
 function toggleButtonState(inputList, buttonElement, config) {
-  console.log(hasInvalidInput(inputList));
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.classList.remove(config.buttonOpacity)

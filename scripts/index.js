@@ -4,6 +4,8 @@ const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button
 const nameField = document.querySelector('.profile__name');
 const descriptionField = document.querySelector('.profile__description');
 
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCardAddition = document.querySelector('.popup_type_card');
 const popupPicture = document.querySelector('.popup_type_picture');
@@ -147,11 +149,29 @@ function disableSubmitButton(formElement, config) {
   buttonElement.disabled = true;
 }
 
+//Устанавливаем слушатели клика по оверлею всех попапов
+function setOverlayListeners(popupList) {
+  popupList.forEach(popup => {
+    popup.addEventListener('mousedown', (evt) => {
+      closePopupOverlayClick(evt);
+    })
+  })
+}
+
+//Закрываем попап в случае клика по оверлею
+function closePopupOverlayClick(evt) {
+  if(evt.target === evt.currentTarget) {
+    closePopup(evt.target.closest('.popup'));
+  }
+}
+
 fillPopupProfile();
 renderInitialCards(initialCards);
 
 buttonOpenProfilePopup.addEventListener('click', openProfilePopup);
 buttonOpenCardAdditionPopup.addEventListener('click',() => openPopup(popupCardAddition));
+
+setOverlayListeners(popupList);
 
 buttonCloseProfilePopup.addEventListener('click', () => closePopup(popupProfile));
 buttonCloseCardAdditionPopup.addEventListener('click', () => closePopup(popupCardAddition));
