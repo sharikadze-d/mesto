@@ -160,8 +160,9 @@ function closePopupOverlayClick(evt) {
 //Функция закрытия попапа при нажатии на Esc
 function closePopupByEsc(evt) {
   const popup = document.querySelector('.popup_opened');
+  const keyEscapeValue = 'Escape';
 
-  if (evt.key === 'Escape') {
+  if (evt.key === keyEscapeValue) {
     closePopup(popup);
   }
 }
