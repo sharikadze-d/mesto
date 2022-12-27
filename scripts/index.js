@@ -28,6 +28,8 @@ const text = popupPicture.querySelector('.popup__description');
 const cardTemplate = document.querySelector('#card').content.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
 
+const keyEscapeValue = 'Escape';
+
 //Создание карточки по шаблону template с заданными значениями и слушателями событий
 function createCard (cardData) {
   const card = cardTemplate.cloneNode(true);
@@ -160,7 +162,6 @@ function closePopupOverlayClick(evt) {
 //Функция закрытия попапа при нажатии на Esc
 function closePopupByEsc(evt) {
   const popup = document.querySelector('.popup_opened');
-  const keyEscapeValue = 'Escape';
 
   if (evt.key === keyEscapeValue) {
     closePopup(popup);
