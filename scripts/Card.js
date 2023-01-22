@@ -1,6 +1,7 @@
 import {fillPopupPicture, openPopup, popupPicture} from './index.js';
 
 class Card {
+
   constructor(data, template) {
     this._template = document
     .querySelector(template)

@@ -1,5 +1,9 @@
 import {validationConfig, initialCards} from './constants.js';
 import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
+const CARD_TEMPLATE_ID = '#card';
+const KEY_ESCAPE_VALUE = 'Escape';
 
 const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
@@ -28,37 +32,7 @@ const placeField = formElementCard.querySelector('.popup__item[name="place"]');
 const image = popupPicture.querySelector('.popup__image');
 const text = popupPicture.querySelector('.popup__description');
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
-
-const keyEscapeValue = 'Escape';
-
-//Создание карточки по шаблону template с заданными значениями и слушателями событий
-function createCard (cardData) {
-  const card = cardTemplate.cloneNode(true);
-  const image = card.querySelector('.element__image');
-  const text = card.querySelector('.element__title');
-
-  image.src = cardData.link;
-  image.alt = cardData.name;
-  text.textContent = cardData.name;
-
-  const buttonLike = card.querySelector('.element__like-btn');
-  buttonLike.addEventListener('click', () => {
-    buttonLike.classList.toggle('element__like-btn_active');
-  })
-
-  const buttonDelete = card.querySelector('.element__delete-btn');
-  buttonDelete.addEventListener('click', deleteCard);
-
-  
-  image.addEventListener('click', evt => {
-    fillPopupPicture(evt);
-    openPopup(popupPicture);
-  });
-
-  return card;
-}
 
 //Наполнение контентом попапа с фотографией
 function fillPopupPicture (evt) {
@@ -70,20 +44,11 @@ function fillPopupPicture (evt) {
   text.textContent = currentText;
 }
 
-//Удаление карточки
-function deleteCard(evt) {
-  evt.target.closest('.element').remove();
-}
-
-//Рендер карточки на страницу
-function renderCard (card, container) {
-  container.prepend(card)
-}
-
 //Рендер карточек "из коробки"
 function renderInitialCards (cardsDataArray) {
   cardsDataArray.forEach(element => {
-    renderCard(createCard(element), cardsContainer);
+    const card = new Card(element, CARD_TEMPLATE_ID);
+    card.renderCard(cardsContainer);
   });
 }
 
@@ -166,29 +131,30 @@ function closePopupOverlayClick(evt) {
 function closePopupByEsc(evt) {
   const popup = document.querySelector('.popup_opened');
 
-  if (evt.key === keyEscapeValue) {
+  if (evt.key === KEY_ESCAPE_VALUE) {
     closePopup(popup);
   }
 }
 
-// fillPopupProfile();
-// renderInitialCards(initialCards);
+fillPopupProfile();
+renderInitialCards(initialCards);
 
-// buttonOpenProfilePopup.addEventListener('click', openProfilePopup);
-// buttonOpenCardAdditionPopup.addEventListener('click',() => openPopup(popupCardAddition));
+buttonOpenProfilePopup.addEventListener('click', openProfilePopup);
+buttonOpenCardAdditionPopup.addEventListener('click',() => openPopup(popupCardAddition));
 
-// setOverlayListeners(popupList);
+setOverlayListeners(popupList);
 
-// buttonCloseProfilePopup.addEventListener('click', () => closePopup(popupProfile));
-// buttonCloseCardAdditionPopup.addEventListener('click', () => closePopup(popupCardAddition));
-// buttonClosePicturePopup.addEventListener('click', () => closePopup(popupPicture));
+buttonCloseProfilePopup.addEventListener('click', () => closePopup(popupProfile));
+buttonCloseCardAdditionPopup.addEventListener('click', () => closePopup(popupCardAddition));
+buttonClosePicturePopup.addEventListener('click', () => closePopup(popupPicture));
 
-// formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
-// formElementCard.addEventListener('submit', handleCardFormSubmit);
+formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
+formElementCard.addEventListener('submit', handleCardFormSubmit);
 
 // enableValidation(validationConfig);
 
-const card1 = new Card(initialCards[0], '#card');
-card1.renderCard(cardsContainer);
+const formValidation = new FormValidator(validationConfig, formElementProfile)
+formValidation.enableValidation();
+
 
 export {fillPopupPicture, openPopup, popupPicture};
