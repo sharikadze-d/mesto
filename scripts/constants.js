@@ -34,3 +34,5 @@ const validationConfig = {
   errorClass: 'popup__error_visible',
   buttonOpacity: 'button-opacity'
 };
+
+export {validationConfig, initialCards};
