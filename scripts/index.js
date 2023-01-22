@@ -12,7 +12,7 @@ const nameField = document.querySelector('.profile__name');
 const descriptionField = document.querySelector('.profile__description');
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
-const formList = Array.from(document.forms);
+// const formList = Array.from(document.forms);
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCardAddition = document.querySelector('.popup_type_card');
@@ -35,6 +35,23 @@ const text = popupPicture.querySelector('.popup__description');
 
 const cardsContainer = document.querySelector('.elements');
 
+const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
+const formCardValidator = new FormValidator(validationConfig, formElementCard);
+
+
+//Рендер карточек "из коробки"
+function renderInitialCards (cardsDataArray) {
+  cardsDataArray.forEach(element => {
+    const card = new Card(element, CARD_TEMPLATE_ID);
+    renderCard(card.createCard(), cardsContainer);
+  });
+}
+
+//Отрисовка карточки
+function renderCard(card, container) {
+    container.prepend(card);
+  }
+
 //Наполнение контентом попапа с фотографией
 function fillPopupPicture (evt) {
   const currentImage = evt.target;
@@ -43,14 +60,6 @@ function fillPopupPicture (evt) {
   image.src = currentImage.src;
   image.alt = currentText;
   text.textContent = currentText;
-}
-
-//Рендер карточек "из коробки"
-function renderInitialCards (cardsDataArray) {
-  cardsDataArray.forEach(element => {
-    const card = new Card(element, CARD_TEMPLATE_ID);
-    card.renderCard(cardsContainer);
-  });
 }
 
 //Автозаполнение input'ов значениями со станицы
@@ -91,27 +100,29 @@ function handleProfileFormSubmit (evt) {
 function handleCardFormSubmit (evt) {
   evt.preventDefault();
   
-  const cardData = {};
-  cardData.link = linkField.value;
-  cardData.name = placeField.value;
+  const cardData = {
+    link : linkField.value,
+    name : placeField.value
+  };
 
   const card = new Card(cardData, CARD_TEMPLATE_ID);
-  card.renderCard(cardsContainer);
+  renderCard(card.createCard(), cardsContainer);
 
   closePopup(popupCardAddition);
 
   formElementCard.reset();
-  disableSubmitButton(formElementCard, validationConfig);
+  // disableSubmitButton(formElementCard, validationConfig);
+  formCardValidator.toggleButtonState();
 }
 
 //Функция деактивации кнопки "Сохранить"
-function disableSubmitButton(formElement, config) {
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+// function disableSubmitButton(formElement, config) {
+//   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.classList.remove(config.buttonOpacity)
-  buttonElement.disabled = true;
-}
+//   buttonElement.classList.add(config.inactiveButtonClass);
+//   buttonElement.classList.remove(config.buttonOpacity)
+//   buttonElement.disabled = true;
+// }
 
 //Устанавливаем слушатели клика по оверлею всех попапов
 function setOverlayListeners(popupList) {
@@ -131,22 +142,28 @@ function closePopupOverlayClick(evt) {
 
 //Функция закрытия попапа при нажатии на Esc
 function closePopupByEsc(evt) {
-  const popup = document.querySelector('.popup_opened');
-
   if (evt.key === KEY_ESCAPE_VALUE) {
+    const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
 }
 
 //Функция включения валидации для всех форм страницы
+// function enablePageValidation() {
+//   formList.forEach(form => {
+//     const formValidator = new FormValidator(validationConfig, form);
+//     formValidator.enableValidation();
+//   });
+// }
 function enablePageValidation() {
-  formList.forEach(form => {
-    const formValidator = new FormValidator(validationConfig, form);
-    formValidator.enableValidation();
-  });
+  formProfileValidator.enableValidation();
+  formCardValidator.enableValidation();
 }
 
-fillPopupProfile();
+// fillPopupProfile();
+//Если не заполнить поля ДО активации валидации, то при первом открытии
+//Кнопка "Сохранить" будет неактивна, хотя оба поля валидны
+
 renderInitialCards(initialCards);
 
 buttonOpenProfilePopup.addEventListener('click', openProfilePopup);

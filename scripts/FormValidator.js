@@ -36,12 +36,12 @@ class FormValidator {
 
   //Добавление обработчиков события 'input' на поля ввода
   _setEventListeners() {
-    this._toggleButtonState();
+    this.toggleButtonState();
 
     this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState();
+        this.toggleButtonState();
       })
     })
   }
@@ -54,7 +54,7 @@ class FormValidator {
   }
 
   //Активация/деактивация кнопки submit
-  _toggleButtonState() {
+  toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._config.inactiveButtonClass);
       this._buttonElement.classList.remove(this._config.buttonOpacity)
