@@ -160,7 +160,7 @@ function enablePageValidation() {
   formCardValidator.enableValidation();
 }
 
-// fillPopupProfile();
+fillPopupProfile();
 //Если не заполнить поля ДО активации валидации, то при первом открытии
 //Кнопка "Сохранить" будет неактивна, хотя оба поля валидны
 
