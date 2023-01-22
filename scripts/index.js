@@ -12,6 +12,7 @@ const nameField = document.querySelector('.profile__name');
 const descriptionField = document.querySelector('.profile__description');
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
+const formList = Array.from(document.forms);
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCardAddition = document.querySelector('.popup_type_card');
@@ -94,8 +95,9 @@ function handleCardFormSubmit (evt) {
   cardData.link = linkField.value;
   cardData.name = placeField.value;
 
-  const card = createCard(cardData);
-  renderCard(card, cardsContainer);
+  const card = new Card(cardData, CARD_TEMPLATE_ID);
+  card.renderCard(cardsContainer);
+
   closePopup(popupCardAddition);
 
   formElementCard.reset();
@@ -136,6 +138,14 @@ function closePopupByEsc(evt) {
   }
 }
 
+//Функция включения валидации для всех форм страницы
+function enablePageValidation() {
+  formList.forEach(form => {
+    const formValidator = new FormValidator(validationConfig, form);
+    formValidator.enableValidation();
+  });
+}
+
 fillPopupProfile();
 renderInitialCards(initialCards);
 
@@ -151,10 +161,6 @@ buttonClosePicturePopup.addEventListener('click', () => closePopup(popupPicture)
 formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
 formElementCard.addEventListener('submit', handleCardFormSubmit);
 
-// enableValidation(validationConfig);
-
-const formValidation = new FormValidator(validationConfig, formElementProfile)
-formValidation.enableValidation();
-
+enablePageValidation();
 
 export {fillPopupPicture, openPopup, popupPicture};
