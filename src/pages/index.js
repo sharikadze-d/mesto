@@ -1,6 +1,7 @@
-import {validationConfig, initialCards} from './constants.js';
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
+import {validationConfig, initialCards} from '../utils/constants.js';
+import {Card} from '../components/Card.js';
+import {FormValidator} from '../components/FormValidator.js';
+import './index.css';
 
 const CARD_TEMPLATE_ID = '#card';
 const KEY_ESCAPE_VALUE = 'Escape';

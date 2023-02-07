@@ -1,4 +1,4 @@
-import {fillPopupPicture, openPopup, popupPicture} from './index.js';
+import {fillPopupPicture, openPopup, popupPicture} from '../pages/index.js';
 
 class Card {
 

@@ -13,12 +13,12 @@
 <body class="page">
   <div class="page__inner">
     <header class="header">
-      <a href="#" class="logo opacity"><img src="./images/logo.svg" alt="Логотип Mesto" class="logo__image"></a>
+      <a href="#" class="logo opacity"><img src="<%=require('./images/logo.svg')%>" alt="Логотип Mesto" class="logo__image"></a>
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__inner">
-          <img src="./images/profile-avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+          <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__name-wrapper">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -83,9 +83,6 @@
       </div>
     </article>
   </template>
-<script type="module" src="./scripts/constants.js"></script>
-<script type="module" src="./scripts/index.js"></script>
-<script type="module" src="./scripts/Card.js"></script>
-<script type="module" src="./scripts/FormValidator.js"></script>
+<script type="module" src="./pages/index.js"></script>
 </body>
 </html>
