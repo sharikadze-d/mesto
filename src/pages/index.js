@@ -1,10 +1,11 @@
 import {validationConfig, initialCards} from '../utils/constants.js';
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
+import {openPopup, popupPicture, closePopupByEsc} from '../utils/utils.js';
 import './index.css';
 
 const CARD_TEMPLATE_ID = '#card';
-const KEY_ESCAPE_VALUE = 'Escape';
+// const KEY_ESCAPE_VALUE = 'Escape';
 
 const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
@@ -17,7 +18,7 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCardAddition = document.querySelector('.popup_type_card');
-const popupPicture = document.querySelector('.popup_type_picture');
+// const popupPicture = document.querySelector('.popup_type_picture');
 
 const buttonCloseProfilePopup = popupProfile.querySelector('.popup__close-btn');
 const buttonCloseCardAdditionPopup = popupCardAddition.querySelector('.popup__close-btn');
@@ -31,8 +32,8 @@ const formElementCard = popupCardAddition.querySelector('.popup__form');
 const linkField = formElementCard.querySelector('.popup__item[name="img-link"]');
 const placeField = formElementCard.querySelector('.popup__item[name="place"]');
 
-const image = popupPicture.querySelector('.popup__image');
-const text = popupPicture.querySelector('.popup__description');
+// const image = popupPicture.querySelector('.popup__image');
+// const text = popupPicture.querySelector('.popup__description');
 
 const cardsContainer = document.querySelector('.elements');
 
@@ -53,15 +54,15 @@ function renderCard(card, container) {
     container.prepend(card);
   }
 
-//Наполнение контентом попапа с фотографией
-function fillPopupPicture (evt) {
-  const currentImage = evt.target;
-  const currentText = currentImage.alt;
+// //Наполнение контентом попапа с фотографией
+// function fillPopupPicture (evt) {
+//   const currentImage = evt.target;
+//   const currentText = currentImage.alt;
   
-  image.src = currentImage.src;
-  image.alt = currentText;
-  text.textContent = currentText;
-}
+//   image.src = currentImage.src;
+//   image.alt = currentText;
+//   text.textContent = currentText;
+// }
 
 //Автозаполнение input'ов значениями со станицы
 function fillPopupProfile() {
@@ -69,11 +70,11 @@ function fillPopupProfile() {
   jobInput.value = descriptionField.textContent;
 }
 
-//Открыть попап
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupByEsc);
-}
+// //Открыть попап
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', closePopupByEsc);
+// }
 
 //Открыть попап редактирования профиля
 function openProfilePopup() {
@@ -141,13 +142,13 @@ function closePopupOverlayClick(evt) {
   }
 }
 
-//Функция закрытия попапа при нажатии на Esc
-function closePopupByEsc(evt) {
-  if (evt.key === KEY_ESCAPE_VALUE) {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
-  }
-}
+// //Функция закрытия попапа при нажатии на Esc
+// function closePopupByEsc(evt) {
+//   if (evt.key === KEY_ESCAPE_VALUE) {
+//     const popup = document.querySelector('.popup_opened');
+//     closePopup(popup);
+//   }
+// }
 
 //Функция включения валидации для всех форм страницы
 // function enablePageValidation() {
@@ -181,4 +182,4 @@ formElementCard.addEventListener('submit', handleCardFormSubmit);
 
 enablePageValidation();
 
-export {fillPopupPicture, openPopup, popupPicture};
+// export {fillPopupPicture, openPopup, popupPicture};
