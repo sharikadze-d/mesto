@@ -6,6 +6,7 @@ import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import './index.css';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const CONTAINER_SELECTOR = '.elements';
 const CARD_TEMPLATE_ID = '#card';
