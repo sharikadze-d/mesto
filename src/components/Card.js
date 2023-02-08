@@ -1,6 +1,6 @@
 import {fillPopupPicture, openPopup, popupPicture} from '../utils/utils.js';
 
-class Card {
+export default class Card {
 
   constructor(data, templateSelector) {
     this._templateSelector = templateSelector;
@@ -56,5 +56,3 @@ class Card {
     return this._card;
   }
 }
-
-export {Card}

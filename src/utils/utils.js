@@ -1,5 +1,5 @@
 export const popupPicture = document.querySelector('.popup_type_picture');
-const KEY_ESCAPE_VALUE = 'Escape';
+export const KEY_ESCAPE_VALUE = 'Escape';
 const image = popupPicture.querySelector('.popup__image');
 const text = popupPicture.querySelector('.popup__description');
 
