@@ -5,6 +5,7 @@ import {openPopup, popupPicture, closePopupByEsc} from '../utils/utils.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import './index.css';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 const CONTAINER_SELECTOR = '.elements';
 const CARD_TEMPLATE_ID = '#card';
@@ -133,6 +134,7 @@ formElementCard.addEventListener('submit', handleCardFormSubmit);
 
 enablePageValidation();
 
-const profilePopup = new Popup('.popup_type_profile');
-profilePopup.setEventListeners();
-buttonOpenProfilePopup.addEventListener('click', () => { profilePopup.open() })
+const imagePopup = new PopupWithImage('.popup_type_picture');
+imagePopup.setEventListeners();
+const button = document.querySelector('.element');
+button.addEventListener('click', evt => {imagePopup.open(evt)})

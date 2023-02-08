@@ -34,11 +34,11 @@ export default class Card {
     card.remove();
   }
 
-  //Обработка нажатия на изображение
-  _handleImageClick(evt) {
-    fillPopupPicture(evt);
-    openPopup(popupPicture);
-  }
+  // //Обработка нажатия на изображение
+  // _handleImageClick(evt) {
+  //   fillPopupPicture(evt);
+  //   openPopup(popupPicture);
+  // }
 
   //Добавление слушателей
   _setListeners() {
