@@ -2,9 +2,11 @@ import {fillPopupPicture, openPopup, popupPicture} from '../utils/utils.js';
 
 export default class Card {
 
-  constructor(data, templateSelector) {
+  constructor({name, link}, templateSelector, handleCardClick) {
     this._templateSelector = templateSelector;
-    this._data = data;
+    this._name = name;
+    this._link = link;
+    this._handleCardClick = handleCardClick;
   }
   
   //Получение шаблона карторчки и всех нужных элементов
@@ -19,9 +21,9 @@ export default class Card {
 
   //Передача карточке изображения и заголовка
   _setData() {
-    this._image.src = this._data.link;
-    this._image.alt = this._data.name;
-    this._text.textContent = this._data.name;
+    this._image.src = this._link;
+    this._image.alt = this._name;
+    this._text.textContent = this._name;
   }
 
   //Обработка нажатия кнопки "лайк"
@@ -44,7 +46,9 @@ export default class Card {
   _setListeners() {
     this._buttonLike.addEventListener('click', () => {this._handleLikeCard(this._buttonLike)});
     this._buttonDelete.addEventListener('click', () => {this._handleDeleteCard(this._card)});
-    this._image.addEventListener('click', this._handleImageClick)
+    this._image.addEventListener('click', evt => {
+      this._handleCardClick(evt);
+    })
   }
 
   //Создание карточки
