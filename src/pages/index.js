@@ -7,11 +7,12 @@ import Popup from '../components/Popup.js';
 import './index.css';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const CONTAINER_SELECTOR = '.elements';
 const CARD_TEMPLATE_ID = '#card';
 
-// const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
+const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 // const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
 
 // const nameField = document.querySelector('.profile__name');
@@ -30,12 +31,16 @@ const CARD_TEMPLATE_ID = '#card';
 // // const nameInput = formElementProfile.querySelector('.popup__item[name="name"]');
 // const jobInput = formElementProfile.querySelector('.popup__item[name="description"]');
 
-const formElementCard = popupCardAddition.querySelector('.popup__form');
+// const formElementCard = popupCardAddition.querySelector('.popup__form');
 // const linkField = formElementCard.querySelector('.popup__item[name="img-link"]');
 // const placeField = formElementCard.querySelector('.popup__item[name="place"]');
 
-const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
-const formCardValidator = new FormValidator(validationConfig, formElementCard);
+
+
+
+
+// const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
+// const formCardValidator = new FormValidator(validationConfig, formElementCard);
 
 const cardContainer = new Section( { 
   items: initialCards, 
@@ -134,8 +139,10 @@ function enablePageValidation() {
 
 // formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
 // formElementCard.addEventListener('submit', handleCardFormSubmit);
-const popupProfile = new PopupWithForm('.popup_type_profile', () => {
-  
+const userInfo = new UserInfo({nameSelector: '.profile__name',
+  jobSelector: '.profile__description'});
+const popupProfile = new PopupWithForm('.popup_type_profile', (data) => {
+  userInfo.setUserInfo(data);
 });
 const popupCard = new PopupWithForm('.popup_type_card', () => {
 
@@ -146,5 +153,9 @@ popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupImage.setEventListeners();
 
+buttonOpenProfilePopup.addEventListener('click', () => {
+  popupProfile.setInputValues(userInfo.getUserInfo());
+  popupProfile.open()});
 
-enablePageValidation();
+
+// enablePageValidation();
