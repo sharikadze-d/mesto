@@ -1,5 +1,3 @@
-import {fillPopupPicture, openPopup, popupPicture} from '../utils/utils.js';
-
 export default class Card {
 
   constructor({name, link}, templateSelector, handleCardClick) {
@@ -35,12 +33,6 @@ export default class Card {
   _handleDeleteCard(card) {
     card.remove();
   }
-
-  // //Обработка нажатия на изображение
-  // _handleImageClick(evt) {
-  //   fillPopupPicture(evt);
-  //   openPopup(popupPicture);
-  // }
 
   //Добавление слушателей
   _setListeners() {

@@ -7,6 +7,7 @@ export default class PopupWithImage extends Popup {
     this._text = this._popup.querySelector('.popup__description');
   }
 
+  //Наполнение модального окна с изображением
   _fillPopup(evt) {
     const currentImage = evt.target;
     const currentText = currentImage.alt;
@@ -16,6 +17,7 @@ export default class PopupWithImage extends Popup {
     this._text.textContent = currentText;
   }
 
+  //Открытие модального окна с предварительным наполнением
   open(evt) {
     this._fillPopup(evt);
     super.open();

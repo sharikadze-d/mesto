@@ -8,6 +8,7 @@ export default class PopupWithForm extends Popup {
     this._inputList = Array.from(this._popup.querySelectorAll('.popup__item'));
   }
 
+  //Получение значений полей формы
   _getInputValues() {
     const inputValuesList = {};
     this._inputList.forEach(input => {
@@ -17,6 +18,7 @@ export default class PopupWithForm extends Popup {
     return inputValuesList;
   }
 
+  //Добавление слушателей событий
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
@@ -27,6 +29,7 @@ export default class PopupWithForm extends Popup {
      })
   }
 
+  //Заполнение полей формы данными из передаваемого объекта
   setInputValues(data) {
     let index = 0;
     for (let key in data) {
@@ -35,6 +38,7 @@ export default class PopupWithForm extends Popup {
     }
   }
 
+  //Закрытие модального окна со сбросом значений полей формы
   close() {
     super.close();
     this._form.reset();

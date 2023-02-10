@@ -1,161 +1,69 @@
 import './index.css';
-import {validationConfig, initialCards} from '../utils/constants.js';
+import {validationConfig, initialCards, selectors} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {openPopup, popupPicture, closePopupByEsc} from '../utils/utils.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
-const CONTAINER_SELECTOR = '.elements';
-const CARD_TEMPLATE_ID = '#card';
-
+//Кнопки
 const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
 
-// const nameField = document.querySelector('.profile__name');
-// const descriptionField = document.querySelector('.profile__description');
-
-// const popupList = Array.from(document.querySelectorAll('.popup'));
-
-// const popupProfile = document.querySelector('.popup_type_profile');
-// const popupCardAddition = document.querySelector('.popup_type_card');
-
-// // const buttonCloseProfilePopup = popupProfile.querySelector('.popup__close-btn');
-// // const buttonCloseCardAdditionPopup = popupCardAddition.querySelector('.popup__close-btn');
-// // const buttonClosePicturePopup = popupPicture.querySelector('.popup__close-btn');
-
+//Формы
 const formElementProfile = document.querySelector('.popup__form[name="profile-input-form"]');
-// // const nameInput = formElementProfile.querySelector('.popup__item[name="name"]');
-// const jobInput = formElementProfile.querySelector('.popup__item[name="description"]');
-
 const formElementCard = document.querySelector('.popup__form[name="add-card-input-form"]');
-// const linkField = formElementCard.querySelector('.popup__item[name="img-link"]');
-// const placeField = formElementCard.querySelector('.popup__item[name="place"]');
 
-
-
-
-
+//Создание экземпляра класса FormValidator для каждой формы
 const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
 const formCardValidator = new FormValidator(validationConfig, formElementCard);
 
+//Создание экзмепляра класса Section(контейнер карточек)
 const cardContainer = new Section( { 
   items: initialCards, 
-  renderer: (item) => {
-    const card = new Card(item, CARD_TEMPLATE_ID, evt => {
+  renderer: (item) => { //Функция обработчик добавления карточки на страницу
+    const card = new Card(item, selectors.cardTemplateId, evt => { //Функция обработчик клика по картинке
       popupImage.open(evt);
     });
     cardContainer.container.prepend(card.createCard());
     }},
-    CONTAINER_SELECTOR);
+    selectors.container);
 
+//Рендер карточек "из коробки"
 cardContainer.addInitialItems();
-  
 
-// //Автозаполнение input'ов значениями со станицы
-// function fillPopupProfile() {
-//   nameInput.value = nameField.textContent;
-//   jobInput.value = descriptionField.textContent;
-// }
-
-// //Открыть попап редактирования профиля
-// function openProfilePopup() {
-//   fillPopupProfile();
-//   openPopup(popupProfile);
-// }
-
-//Закрыть попап
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByEsc);
-}
-
-// //Обработчик отправки формы редактирования профиля
-// function handleProfileFormSubmit (evt) {
-//     evt.preventDefault(); 
-    
-//     nameField.textContent = nameInput.value;
-//     descriptionField.textContent = jobInput.value;
-
-//     closePopup(popupProfile);
-// }
-
-// //Обработчик отправки формы добавления карточки
-// function handleCardFormSubmit (evt) {
-//   evt.preventDefault();
-  
-//   const cardData = {
-//     link : linkField.value,
-//     name : placeField.value
-//   };
-
-//   cardContainer.addItem(cardData);
-
-//   closePopup(popupCardAddition);
-
-//   formElementCard.reset();
-//   // disableSubmitButton(formElementCard, validationConfig);
-//   formCardValidator.toggleButtonState();
-// }
-
-// //Устанавливаем слушатели клика по оверлею всех попапов
-// function setOverlayListeners(popupList) {
-//   popupList.forEach(popup => {
-//     popup.addEventListener('mousedown', (evt) => {
-//       closePopupOverlayClick(evt);
-//     })
-//   })
-// }
-
-//Закрываем попап в случае клика по оверлею
-function closePopupOverlayClick(evt) {
-  if(evt.target === evt.currentTarget) {
-    closePopup(evt.target.closest('.popup'));
-  }
-}
-
+//Функция активации валидации для обеих форм на странице
 function enablePageValidation() {
   formProfileValidator.enableValidation();
   formCardValidator.enableValidation();
 }
 
+//Создание экземпляра класса UserInfo(информация профиля)
+const userInfo = new UserInfo({
+  nameSelector: selectors.nameField,
+  jobSelector: selectors.jobField});
 
-
-// fillPopupProfile();
-//Если не заполнить поля ДО активации валидации, то при первом открытии
-//Кнопка "Сохранить" будет неактивна, хотя оба поля валидны
-
-// renderInitialCards(initialCards);
-
-// buttonOpenProfilePopup.addEventListener('click', openProfilePopup);
-// buttonOpenCardAdditionPopup.addEventListener('click',() => openPopup(popupCardAddition));
-
-// setOverlayListeners(popupList);
-
-// buttonCloseProfilePopup.addEventListener('click', () => closePopup(popupProfile));
-// buttonCloseCardAdditionPopup.addEventListener('click', () => closePopup(popupCardAddition));
-// buttonClosePicturePopup.addEventListener('click', () => closePopup(popupPicture));
-
-// formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
-// formElementCard.addEventListener('submit', handleCardFormSubmit);
-const userInfo = new UserInfo({nameSelector: '.profile__name',
-  jobSelector: '.profile__description'});
-const popupProfile = new PopupWithForm('.popup_type_profile', (data) => {
-  userInfo.setUserInfo(data);
+//Создание экзмепляров соответсвующих классов для каждого модального окна
+const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
+  userInfo.setUserInfo(data); 
 });
-const popupCard = new PopupWithForm('.popup_type_card', (data) => {
+const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
   cardContainer.addItem(data)
 });
-const popupImage = new PopupWithImage('.popup_type_picture');
+const popupImage = new PopupWithImage(selectors.popupPicture);
 
+//Добавление слушателей на все модальные окна
 popupProfile.setEventListeners();
-popupProfile.setInputValues(userInfo.getUserInfo());
 popupCard.setEventListeners();
 popupImage.setEventListeners();
 
+//Заполнение формы редактирования при загрузке страницы, до активации валидации,
+//необходимо чтобы при активации валидации она не деактивировала кнопку,
+//проверив пустую форму
+popupProfile.setInputValues(userInfo.getUserInfo());
+
+//Добавление слушателей на кнопки открытия модальных окон
 buttonOpenProfilePopup.addEventListener('click', () => {
   popupProfile.setInputValues(userInfo.getUserInfo());
   popupProfile.open()});
@@ -164,4 +72,5 @@ buttonOpenCardAdditionPopup.addEventListener('click', () => {
   popupCard.open();
 })
 
+//Активация валидации на странице
 enablePageValidation();

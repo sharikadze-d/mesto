@@ -35,4 +35,14 @@ const validationConfig = {
   buttonOpacity: 'button-opacity'
 };
 
-export {validationConfig, initialCards};
+const selectors = {
+  container: '.elements',
+  nameField: '.profile__name',
+  jobField: '.profile__description',
+  popupProfile: '.popup_type_profile',
+  popupCard: '.popup_type_card',
+  popupPicture: '.popup_type_picture',
+  cardTemplateId: '#card'
+}
+
+export {validationConfig, initialCards, selectors};
