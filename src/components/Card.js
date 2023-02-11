@@ -25,13 +25,14 @@ export default class Card {
   }
 
   //Обработка нажатия кнопки "лайк"
-  _handleLikeCard(button) {
-    button.classList.toggle('element__like-btn_active');
+  _handleLikeCard() {
+    this._buttonLike.classList.toggle('element__like-btn_active');
   }
 
   //Обработка нажатия кнопки "удалить"
-  _handleDeleteCard(card) {
-    card.remove();
+  _handleDeleteCard() {
+    this._card.remove();
+    this._card = null;
   }
 
   //Добавление слушателей
@@ -41,6 +42,14 @@ export default class Card {
     this._image.addEventListener('click', evt => {
       this._handleCardClick(evt);
     })
+  }
+
+  getCardData() {
+    const data = {};
+    data.link = this._link;
+    data.text = this._text.textContent;
+
+    return data;
   }
 
   //Создание карточки

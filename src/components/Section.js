@@ -9,7 +9,8 @@ export default class Section {
 
   //Метод добавления карточки
   addItem(item) {
-    this._renderer(item);
+    const card = this._renderer(item);
+    this.container.prepend(card);
   }
 
   //Метод добавления карточек "из коробки"

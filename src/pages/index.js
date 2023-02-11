@@ -1,19 +1,18 @@
 import './index.css';
-import {validationConfig, initialCards, selectors} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-
-//Кнопки
-const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
-const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
-
-//Формы
-const formElementProfile = document.querySelector('.popup__form[name="profile-input-form"]');
-const formElementCard = document.querySelector('.popup__form[name="add-card-input-form"]');
+import {
+  validationConfig,
+  initialCards,
+  selectors,
+  buttonOpenProfilePopup,
+  buttonOpenCardAdditionPopup,
+  formElementProfile,
+  formElementCard} from '../utils/constants.js';
 
 //Создание экземпляра класса FormValidator для каждой формы
 const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
@@ -24,9 +23,9 @@ const cardContainer = new Section( {
   items: initialCards, 
   renderer: (item) => { //Функция обработчик добавления карточки на страницу
     const card = new Card(item, selectors.cardTemplateId, evt => { //Функция обработчик клика по картинке
-      popupImage.open(evt);
+      popupImage.open(card.getCardData());
     });
-    cardContainer.container.prepend(card.createCard());
+    return card.createCard();
     }},
     selectors.container);
 
@@ -47,9 +46,11 @@ const userInfo = new UserInfo({
 //Создание экзмепляров соответсвующих классов для каждого модального окна
 const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
   userInfo.setUserInfo(data); 
+  popupProfile.close();
 });
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
   cardContainer.addItem(data)
+  popupCard.close();
 });
 const popupImage = new PopupWithImage(selectors.popupPicture);
 
@@ -69,6 +70,7 @@ buttonOpenProfilePopup.addEventListener('click', () => {
   popupProfile.open()});
 
 buttonOpenCardAdditionPopup.addEventListener('click', () => {
+  formCardValidator.toggleButtonState();
   popupCard.open();
 })
 

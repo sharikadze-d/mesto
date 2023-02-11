@@ -7,19 +7,11 @@ export default class PopupWithImage extends Popup {
     this._text = this._popup.querySelector('.popup__description');
   }
 
-  //Наполнение модального окна с изображением
-  _fillPopup(evt) {
-    const currentImage = evt.target;
-    const currentText = currentImage.alt;
-  
-    this._image.src = currentImage.src;
-    this._image.alt = currentText;
-    this._text.textContent = currentText;
-  }
-
   //Открытие модального окна с предварительным наполнением
-  open(evt) {
-    this._fillPopup(evt);
-    super.open();
+  open({ link, text }) {
+    this._image.src = link;
+    this._image.alt = text;
+    this._text.textContent = text;
+    super.open()
   }
 }

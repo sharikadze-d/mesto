@@ -45,4 +45,20 @@ const selectors = {
   cardTemplateId: '#card'
 }
 
-export {validationConfig, initialCards, selectors};
+//Кнопки
+const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
+const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
+
+//Формы
+const formElementProfile = document.querySelector('.popup__form[name="profile-input-form"]');
+const formElementCard = document.querySelector('.popup__form[name="add-card-input-form"]');
+
+export {
+  validationConfig,
+  initialCards,
+  selectors,
+  buttonOpenProfilePopup,
+  buttonOpenCardAdditionPopup,
+  formElementProfile,
+  formElementCard
+};

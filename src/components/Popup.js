@@ -3,12 +3,14 @@ const KEY_ESCAPE_VALUE = 'Escape'
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this._buttonClose = this._popup.querySelector('.popup__close-btn');
   }
 
   //Метод открытия модального окна
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', (evt) => { this._handleEscClose(evt) });
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   //Метод закрытия модального окна
@@ -20,14 +22,13 @@ export default class Popup {
   //Обработчик закрытия модального окна клавишей "Esc"
   _handleEscClose(evt) {
     if (evt.key === KEY_ESCAPE_VALUE) {
-      this._popup.classList.remove('popup_opened')
+      this.close();
     }
   }
 
   //Добавление слушателей событий
   setEventListeners() {
-    const buttonClose = this._popup.querySelector('.popup__close-btn');
-    buttonClose.addEventListener('click', () => { this.close(); });
+    this._buttonClose.addEventListener('click', () => { this.close(); });
 
     this._popup.addEventListener('mousedown', evt => {
       if(evt.target === evt.currentTarget) {
