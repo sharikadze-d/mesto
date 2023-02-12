@@ -14,6 +14,13 @@ import {
   formElementProfile,
   formElementCard} from '../utils/constants.js';
 
+//Генерация карточки
+function generateCard(item) {
+  const card = new Card(item, selectors.cardTemplateId, () => { //Функция обработчик клика по картинке
+    popupImage.open(card.getCardData());
+  });
+  return card.createCard();
+} 
 //Создание экземпляра класса FormValidator для каждой формы
 const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
 const formCardValidator = new FormValidator(validationConfig, formElementCard);
@@ -22,10 +29,8 @@ const formCardValidator = new FormValidator(validationConfig, formElementCard);
 const cardContainer = new Section( { 
   items: initialCards, 
   renderer: (item) => { //Функция обработчик добавления карточки на страницу
-    const card = new Card(item, selectors.cardTemplateId, evt => { //Функция обработчик клика по картинке
-      popupImage.open(card.getCardData());
-    });
-    return card.createCard();
+    const card = generateCard(item);
+    cardContainer.addItem(card);
     }},
     selectors.container);
 
@@ -49,7 +54,8 @@ const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
   popupProfile.close();
 });
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
-  cardContainer.addItem(data)
+  const card = generateCard(data);
+  cardContainer.addItem(card);
   popupCard.close();
 });
 const popupImage = new PopupWithImage(selectors.popupPicture);
