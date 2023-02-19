@@ -35,6 +35,14 @@ const validationConfig = {
   buttonOpacity: 'button-opacity'
 };
 
+const apiConfig = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-60',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: '7daba374-a55e-4250-81a9-4f3724b24784'
+  }
+}
+
 const selectors = {
   container: '.elements',
   nameField: '.profile__name',
@@ -45,6 +53,8 @@ const selectors = {
   cardTemplateId: '#card'
 }
 
+
+
 //Кнопки
 const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
@@ -54,6 +64,7 @@ const formElementProfile = document.querySelector('.popup__form[name="profile-in
 const formElementCard = document.querySelector('.popup__form[name="add-card-input-form"]');
 
 export {
+  apiConfig,
   validationConfig,
   initialCards,
   selectors,

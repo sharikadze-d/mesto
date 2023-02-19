@@ -5,7 +5,9 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import {
+  apiConfig,
   validationConfig,
   initialCards,
   selectors,
@@ -13,6 +15,13 @@ import {
   buttonOpenCardAdditionPopup,
   formElementProfile,
   formElementCard} from '../utils/constants.js';
+
+  const api = new Api(apiConfig);
+ 
+  api.getUserData()
+    .then(data => {
+      console.log(data);
+    })
 
 //Генерация карточки
 function generateCard(item) {

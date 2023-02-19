@@ -14,8 +14,8 @@ export default class UserInfo {
   }
 
   //Метод установки данных профиля на странице из передаваемого объекта
-  setUserInfo({ userName, description }) {
-    this._name.textContent = userName;
-    this._job.textContent = description;
+  setUserInfo({ name, about }) {
+    this._name.textContent = name;
+    this._job.textContent = about;
   }
 }
