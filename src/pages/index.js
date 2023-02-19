@@ -9,7 +9,6 @@ import Api from '../components/Api.js';
 import {
   apiConfig,
   validationConfig,
-  initialCards,
   selectors,
   buttonOpenProfilePopup,
   buttonOpenCardAdditionPopup,
@@ -18,10 +17,23 @@ import {
 
   const api = new Api(apiConfig);
  
-  api.getUserData()
-    .then(data => {
-      console.log(data);
-    })
+  let initialCardsData;
+  api.getInitialCardsData()
+  .then(data => {
+    //Создание экзмепляра класса Section(контейнер карточек)
+const cardContainer = new Section( { 
+  items: data, 
+  renderer: (item) => { //Функция обработчик добавления карточки на страницу
+    const card = generateCard(item);
+    cardContainer.addItem(card);
+    }},
+    selectors.container);
+
+//Рендер карточек "из коробки"
+cardContainer.addInitialItems();
+  })
+
+  // console.log(initialCardsData)
 
 //Генерация карточки
 function generateCard(item) {
@@ -34,17 +46,17 @@ function generateCard(item) {
 const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
 const formCardValidator = new FormValidator(validationConfig, formElementCard);
 
-//Создание экзмепляра класса Section(контейнер карточек)
-const cardContainer = new Section( { 
-  items: initialCards, 
-  renderer: (item) => { //Функция обработчик добавления карточки на страницу
-    const card = generateCard(item);
-    cardContainer.addItem(card);
-    }},
-    selectors.container);
+// //Создание экзмепляра класса Section(контейнер карточек)
+// const cardContainer = new Section( { 
+//   items: initialCardsData, 
+//   renderer: (item) => { //Функция обработчик добавления карточки на страницу
+//     const card = generateCard(item);
+//     cardContainer.addItem(card);
+//     }},
+//     selectors.container);
 
-//Рендер карточек "из коробки"
-cardContainer.addInitialItems();
+// //Рендер карточек "из коробки"
+// cardContainer.addInitialItems();
 
 //Функция активации валидации для обеих форм на странице
 function enablePageValidation() {
@@ -52,15 +64,28 @@ function enablePageValidation() {
   formCardValidator.enableValidation();
 }
 
-//Создание экземпляра класса UserInfo(информация профиля)
+//Создание экземпляра класса UserInfo(информация профиля) и загрузка данных с сервера
 const userInfo = new UserInfo({
   nameSelector: selectors.nameField,
-  jobSelector: selectors.jobField});
+  jobSelector: selectors.jobField,
+  avatarSelector: selectors.avatar});
+
+  api.getUserData()
+  .then(data => {
+    userInfo.setUserInfo(data);
+  })
+  .catch(() => {
+    console.log(new Error('Ошибка загрузки'));
+  })
 
 //Создание экзмепляров соответсвующих классов для каждого модального окна
 const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
-  userInfo.setUserInfo(data); 
-  popupProfile.close();
+  api.setUserData(data)
+  .then((data) => {
+    userInfo.setUserInfo(data); 
+    popupProfile.close();
+  })
+  
 });
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
   const card = generateCard(data);

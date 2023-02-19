@@ -17,13 +17,13 @@
     <main class="content">
       <section class="profile">
         <div class="profile__inner">
-          <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+          <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар профиля" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__name-wrapper">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button type="button" class="profile__edit-button opacity"></button>
             </div>
-            <p class="profile__description">Исследователь океана</p>
+            <p class="profile__description"></p>
           </div>
         </div>
         <button type="button" class="profile__add-button opacity"></button>
@@ -40,9 +40,9 @@
         <button type="button" class="popup__close-btn opacity"></button>
         <form class="popup__form" name="profile-input-form" novalidate>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <input required id="name" type="text" name="userName" placeholder="Имя" class="popup__item" minlength="2" maxlength="40">
+          <input required id="name" type="text" name="name" placeholder="Имя" class="popup__item" minlength="2" maxlength="40">
           <span class="name-error popup__error"></span>
-          <input required id="job" type="text" name="description" placeholder="Профессия" class="popup__item" minlength="2" maxlength="200">
+          <input required id="job" type="text" name="about" placeholder="Профессия" class="popup__item" minlength="2" maxlength="200">
           <span class="job-error popup__error"></span>
           <button type="submit" class="popup__save-btn button-opacity">Сохранить</button>
       </form>

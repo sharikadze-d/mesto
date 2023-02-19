@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__item',
@@ -47,6 +20,7 @@ const selectors = {
   container: '.elements',
   nameField: '.profile__name',
   jobField: '.profile__description',
+  avatar: '.profile__avatar',
   popupProfile: '.popup_type_profile',
   popupCard: '.popup_type_card',
   popupPicture: '.popup_type_picture',
@@ -66,7 +40,6 @@ const formElementCard = document.querySelector('.popup__form[name="add-card-inpu
 export {
   apiConfig,
   validationConfig,
-  initialCards,
   selectors,
   buttonOpenProfilePopup,
   buttonOpenCardAdditionPopup,
