@@ -32,5 +32,17 @@ export default class Api {
     return fetch(`${this._url}/cards`, { headers: this._headers })
     .then(handleResponse)
   }
+
+  setCardData( {name, link } ) {
+    return fetch(`${this._url}/cards`, { 
+      headers: this._headers,
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        link: link
+       })
+      })
+    .then(handleResponse)
+  }
 }
 

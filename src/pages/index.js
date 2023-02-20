@@ -16,12 +16,11 @@ import {
   formElementCard} from '../utils/constants.js';
 
   const api = new Api(apiConfig);
- 
-  let initialCardsData;
+  let cardContainer;
   api.getInitialCardsData()
   .then(data => {
     //Создание экзмепляра класса Section(контейнер карточек)
-const cardContainer = new Section( { 
+  cardContainer = new Section( { 
   items: data, 
   renderer: (item) => { //Функция обработчик добавления карточки на страницу
     const card = generateCard(item);
@@ -30,10 +29,9 @@ const cardContainer = new Section( {
     selectors.container);
 
 //Рендер карточек "из коробки"
-cardContainer.addInitialItems();
+    cardContainer.addInitialItems();
   })
 
-  // console.log(initialCardsData)
 
 //Генерация карточки
 function generateCard(item) {
@@ -88,9 +86,12 @@ const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
   
 });
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
-  const card = generateCard(data);
-  cardContainer.addItem(card);
-  popupCard.close();
+  api.setCardData(data)
+    .then((data) => {
+        const card = generateCard(data);
+        cardContainer.addItem(card);
+        popupCard.close();})
+  
 });
 const popupImage = new PopupWithImage(selectors.popupPicture);
 
