@@ -1,10 +1,12 @@
 export default class Card {
 
-  constructor({name, link}, templateSelector, handleCardClick) {
+  constructor({name, link, likes}, templateSelector, handleCardClick) {
     this._templateSelector = templateSelector;
     this._name = name;
     this._link = link;
     this._handleCardClick = handleCardClick;
+    this._likes = likes;
+    this._likeCount = likes.length;
   }
   
   //Получение шаблона карторчки и всех нужных элементов
@@ -15,6 +17,7 @@ export default class Card {
     this._text = this._card.querySelector('.element__title');
     this._buttonLike = this._card.querySelector('.element__like-btn');
     this._buttonDelete = this._card.querySelector('.element__delete-btn');
+    this._likeCounter = this._card.querySelector('.element__like-counter');
   }
 
   //Передача карточке изображения и заголовка
@@ -22,6 +25,7 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
     this._text.textContent = this._name;
+    this._likeCounter.textContent = this._likeCount;
   }
 
   //Обработка нажатия кнопки "лайк"

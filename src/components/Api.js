@@ -44,5 +44,6 @@ export default class Api {
       })
     .then(handleResponse)
   }
+
 }
 
