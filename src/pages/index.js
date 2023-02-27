@@ -36,12 +36,24 @@ import PopupConfirm from '../components/PopupConfirm';
 
 //Генерация карточки
 function generateCard(item) {
-  const card = new Card(item, selectors.cardTemplateId, 
-    () => { //Функция обработчик клика по картинке
+  const card = new Card(item, selectors.cardTemplateId, {
+    handleCardClick: () => { //Функция обработчик клика по картинке
             popupImage.open(card.getCardData());
-    }, () => {
+    },
+    handleDeleteClick: () => {
       popupDeleteConfirm.open(card);
-    });
+    },
+    handleLikeClick: () => {
+      if (!card.isLiked) {
+        api.addLike(card)
+        .then(res => {
+          card.toggleLike(res.likes.length);});
+      } else {
+        api.removeLike(card)
+        .then(res => {
+          card.toggleLike(res.likes.length);});
+      }
+    }});
   return card.createCard();
 } 
 //Создание экземпляра класса FormValidator для каждой формы

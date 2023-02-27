@@ -1,6 +1,9 @@
+const USER_ID = '2d53711114e6a31d868fcd5b';
+
 export default class Card {
 
-  constructor({name, link, likes, owner, _id}, templateSelector, handleCardClick, handleDeleteClick) {
+  constructor({name, link, likes, owner, _id}, templateSelector,
+     { handleCardClick, handleDeleteClick, handleLikeClick }) {
     this._templateSelector = templateSelector;
     this._name = name;
     this._link = link;
@@ -10,6 +13,8 @@ export default class Card {
     this._handleDeleteClick = handleDeleteClick;
     this._owner = owner._id;
     this._id = _id;
+    this._handleLikeClick = handleLikeClick;
+    this.isLiked = this._checkLike();
   }
   
   //Получение шаблона карторчки и всех нужных элементов
@@ -24,9 +29,45 @@ export default class Card {
   }
 
   _checkOwner() {
-    if (this._owner != '2d53711114e6a31d868fcd5b') {
+    if (this._owner !== USER_ID) {
       this._buttonDelete.remove();
     }
+  }
+
+  _checkLike() {
+    let like = false;
+    this._likes.forEach(user => {
+      if (user._id === USER_ID) {
+        console.log(user._id === USER_ID)
+        like = true;
+        return;
+      }
+    });
+    return like;
+  }
+
+  _addLike() {
+    this._buttonLike.classList.add('element__like-btn_active');
+  }
+
+  _removeLike() {
+    this._buttonLike.classList.remove('element__like-btn_active');
+  }
+
+  toggleLike(count) {
+    this.setLikesCount(count);
+
+    if(this.isLiked) {
+      this._removeLike();
+    } else {
+      this._addLike();
+    }
+
+    this.isLiked = !this.isLiked
+  }
+
+  setLikesCount(count) {
+    this._likeCounter.textContent = count;
   }
 
   //Передача карточке изображения и заголовка
@@ -34,13 +75,15 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
     this._text.textContent = this._name;
-    this._likeCounter.textContent = this._likeCount;
+    this.setLikesCount(this._likeCount);
+
+    if (this.isLiked) { this._addLike() }
   }
 
-  //Обработка нажатия кнопки "лайк"
-  _handleLikeCard() {
-    this._buttonLike.classList.toggle('element__like-btn_active');
-  }
+  // //Обработка нажатия кнопки "лайк"
+  // _handleLikeCard() {
+  //   this._buttonLike.classList.toggle('element__like-btn_active');
+  // }
 
   //Удаление карточки
   delete() {
@@ -50,7 +93,7 @@ export default class Card {
 
   //Добавление слушателей
   _setListeners() {
-    this._buttonLike.addEventListener('click', () => {this._handleLikeCard()});
+    this._buttonLike.addEventListener('click', this._handleLikeClick);
     this._buttonDelete.addEventListener('click', this._handleDeleteClick);
     this._image.addEventListener('click', evt => {
       this._handleCardClick(evt);
