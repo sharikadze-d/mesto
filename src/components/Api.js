@@ -45,5 +45,18 @@ export default class Api {
     .then(handleResponse)
   }
 
+  deleteCard(item) {
+    return fetch (`${this._url}/cards/${item._id}`, {
+      headers: this._headers,
+      method: 'DELETE'
+    })
+    .then((res) => {
+      if (res.ok) {
+        return item;
+      }
+      return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    });
+  }
+
 }
 

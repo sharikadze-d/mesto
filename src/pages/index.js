@@ -14,6 +14,7 @@ import {
   buttonOpenCardAdditionPopup,
   formElementProfile,
   formElementCard} from '../utils/constants.js';
+import PopupConfirm from '../components/PopupConfirm';
 
   const api = new Api(apiConfig);
   let cardContainer;
@@ -35,9 +36,12 @@ import {
 
 //Генерация карточки
 function generateCard(item) {
-  const card = new Card(item, selectors.cardTemplateId, () => { //Функция обработчик клика по картинке
-    popupImage.open(card.getCardData());
-  });
+  const card = new Card(item, selectors.cardTemplateId, 
+    () => { //Функция обработчик клика по картинке
+            popupImage.open(card.getCardData());
+    }, () => {
+      popupDeleteConfirm.open(card);
+    });
   return card.createCard();
 } 
 //Создание экземпляра класса FormValidator для каждой формы
@@ -75,6 +79,12 @@ const userInfo = new UserInfo({
   .catch(() => {
     console.log(new Error('Ошибка загрузки'));
   })
+
+  const popupDeleteConfirm = new PopupConfirm(selectors.popupConfirm,  (item) => {
+    api.deleteCard(item)
+    .then(card => card.delete())
+  });
+  popupDeleteConfirm.setEventListeners();
 
 //Создание экзмепляров соответсвующих классов для каждого модального окна
 const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {

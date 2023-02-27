@@ -14,7 +14,7 @@ export default class Section {
 
   //Метод добавления карточек "из коробки"
   addInitialItems() {
-    this._items.forEach(item => {
+    this._items.reverse().forEach(item => {
       this._renderer(item);
     })
   }

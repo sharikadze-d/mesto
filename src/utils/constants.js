@@ -24,6 +24,7 @@ const selectors = {
   popupProfile: '.popup_type_profile',
   popupCard: '.popup_type_card',
   popupPicture: '.popup_type_picture',
+  popupConfirm: '.popup_type_confirm',
   cardTemplateId: '#card'
 }
 
