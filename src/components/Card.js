@@ -38,7 +38,6 @@ export default class Card {
     let like = false;
     this._likes.forEach(user => {
       if (user._id === USER_ID) {
-        console.log(user._id === USER_ID)
         like = true;
         return;
       }
