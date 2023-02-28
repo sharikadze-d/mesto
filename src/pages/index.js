@@ -13,7 +13,9 @@ import {
   buttonOpenProfilePopup,
   buttonOpenCardAdditionPopup,
   formElementProfile,
-  formElementCard} from '../utils/constants.js';
+  formElementCard,
+  buttonAvatar,
+  avatar} from '../utils/constants.js';
 import PopupConfirm from '../components/PopupConfirm';
 
   const api = new Api(apiConfig);
@@ -96,31 +98,42 @@ const userInfo = new UserInfo({
     api.deleteCard(item)
     .then(card => card.delete())
   });
-  popupDeleteConfirm.setEventListeners();
-
-//Создание экзмепляров соответсвующих классов для каждого модального окна
-const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
+  
+  //Создание экзмепляров соответсвующих классов для каждого модального окна
+  const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
   api.setUserData(data)
   .then((data) => {
+    popupProfile.startLoading();
     userInfo.setUserInfo(data); 
     popupProfile.close();
   })
   
 });
+
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
   api.setCardData(data)
-    .then((data) => {
-        const card = generateCard(data);
-        cardContainer.addItem(card);
-        popupCard.close();})
+  .then((data) => {
+    popupCard.startLoading();
+    const card = generateCard(data);
+    cardContainer.addItem(card);
+    popupCard.close();})
+    
+  });
   
-});
-const popupImage = new PopupWithImage(selectors.popupPicture);
-
-//Добавление слушателей на все модальные окна
-popupProfile.setEventListeners();
-popupCard.setEventListeners();
-popupImage.setEventListeners();
+  const popupAvatar = new PopupWithForm(selectors.popupAvatar, (data) => {
+    api.setAvatar(data)
+    .then(res => { userInfo.setAvatar(res); })
+    .then(() => { popupAvatar.close(); })
+  });
+  
+  const popupImage = new PopupWithImage(selectors.popupPicture);
+  
+  //Добавление слушателей на все модальные окна
+  popupProfile.setEventListeners();
+  popupCard.setEventListeners();
+  popupImage.setEventListeners();
+  popupDeleteConfirm.setEventListeners();
+  popupAvatar.setEventListeners();
 
 //Заполнение формы редактирования при загрузке страницы, до активации валидации,
 //необходимо чтобы при активации валидации она не деактивировала кнопку,
@@ -135,7 +148,11 @@ buttonOpenProfilePopup.addEventListener('click', () => {
 buttonOpenCardAdditionPopup.addEventListener('click', () => {
   formCardValidator.toggleButtonState();
   popupCard.open();
-})
+});
+
+buttonAvatar.addEventListener('click', () => {
+  popupAvatar.open();
+});
 
 //Активация валидации на странице
 enablePageValidation();

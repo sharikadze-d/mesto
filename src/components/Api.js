@@ -46,7 +46,7 @@ export default class Api {
   }
 
   deleteCard(item) {
-    return fetch (`${this._url}/cards/${item._id}`, {
+    return fetch(`${this._url}/cards/${item._id}`, {
       headers: this._headers,
       method: 'DELETE'
     })
@@ -59,7 +59,7 @@ export default class Api {
   }
 
   addLike( {_id} ) {
-    return fetch (`${this._url}/cards/${_id}/likes`, {
+    return fetch(`${this._url}/cards/${_id}/likes`, {
       headers: this._headers,
       method: 'PUT'
     })
@@ -67,11 +67,22 @@ export default class Api {
   }
 
   removeLike( {_id} ) {
-    return fetch (`${this._url}/cards/${_id}/likes`, {
+    return fetch(`${this._url}/cards/${_id}/likes`, {
       headers: this._headers,
       method: 'DELETE'
     })
     .then(handleResponse)
+  }
+
+  setAvatar( {link} ) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      headers: this._headers,
+      method: 'PATCH',
+      body: JSON.stringify({
+        avatar: link
+       })
+    })
+    .then(handleResponse);
   }
 }
 

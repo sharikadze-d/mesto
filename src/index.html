@@ -84,6 +84,18 @@
     </div>
   </div>
 
+  <div class="popup popup_type_avatar">
+    <div class="popup__container">
+      <button type="button" class="popup__close-btn opacity"></button>
+      <form class="popup__form" name="add-card-input-form" novalidate>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <input required id="url" placeholder="Ссылка на фото" type="url" name="link" class="popup__item">
+        <span class="url-error popup__error"></span>
+        <button type="submit" class="popup__save-btn button-opacity">Создать</button>
+      </form>
+    </div>
+  </div>
+
   <template id="card">
     <article class="element">
       <button type="button" class="element__delete-btn opacity"></button>

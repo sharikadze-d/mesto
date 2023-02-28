@@ -25,6 +25,7 @@ const selectors = {
   popupCard: '.popup_type_card',
   popupPicture: '.popup_type_picture',
   popupConfirm: '.popup_type_confirm',
+  popupAvatar: '.popup_type_avatar',
   cardTemplateId: '#card'
 }
 
@@ -33,6 +34,9 @@ const selectors = {
 //Кнопки
 const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
+const buttonAvatar = document.querySelector('.profile__avatar-wrapper');
+
+const avatar = buttonAvatar.querySelector('.profile__avatar');
 
 //Формы
 const formElementProfile = document.querySelector('.popup__form[name="profile-input-form"]');
@@ -45,5 +49,7 @@ export {
   buttonOpenProfilePopup,
   buttonOpenCardAdditionPopup,
   formElementProfile,
-  formElementCard
+  formElementCard,
+  buttonAvatar,
+  avatar
 };
