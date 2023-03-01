@@ -14,8 +14,8 @@ import {
   buttonOpenCardAdditionPopup,
   formElementProfile,
   formElementCard,
-  buttonAvatar,
-  avatar} from '../utils/constants.js';
+  formElementAvatar,
+  buttonAvatar,} from '../utils/constants.js';
 import PopupConfirm from '../components/PopupConfirm';
 
   const api = new Api(apiConfig);
@@ -34,7 +34,6 @@ import PopupConfirm from '../components/PopupConfirm';
 //Рендер карточек "из коробки"
     cardContainer.addInitialItems();
   })
-
 
 //Генерация карточки
 function generateCard(item) {
@@ -61,23 +60,13 @@ function generateCard(item) {
 //Создание экземпляра класса FormValidator для каждой формы
 const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
 const formCardValidator = new FormValidator(validationConfig, formElementCard);
-
-// //Создание экзмепляра класса Section(контейнер карточек)
-// const cardContainer = new Section( { 
-//   items: initialCardsData, 
-//   renderer: (item) => { //Функция обработчик добавления карточки на страницу
-//     const card = generateCard(item);
-//     cardContainer.addItem(card);
-//     }},
-//     selectors.container);
-
-// //Рендер карточек "из коробки"
-// cardContainer.addInitialItems();
+const formAvatarValidator = new FormValidator(validationConfig, formElementAvatar);
 
 //Функция активации валидации для обеих форм на странице
 function enablePageValidation() {
   formProfileValidator.enableValidation();
   formCardValidator.enableValidation();
+  formAvatarValidator.enableValidation();
 }
 
 //Создание экземпляра класса UserInfo(информация профиля) и загрузка данных с сервера
@@ -95,35 +84,40 @@ const userInfo = new UserInfo({
   })
 
   const popupDeleteConfirm = new PopupConfirm(selectors.popupConfirm,  (item) => {
+    popupDeleteConfirm.renderLoading(true);
     api.deleteCard(item)
     .then(card => card.delete())
+    .finally(() => { popupDeleteConfirm.renderLoading(false); })
   });
   
   //Создание экзмепляров соответсвующих классов для каждого модального окна
   const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
+  popupProfile.renderLoading(true);
   api.setUserData(data)
   .then((data) => {
-    popupProfile.startLoading();
     userInfo.setUserInfo(data); 
     popupProfile.close();
   })
+  .finally(() => { popupProfile.renderLoading(false); })
   
 });
 
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
+  popupCard.renderLoading(true);
   api.setCardData(data)
   .then((data) => {
-    popupCard.startLoading();
     const card = generateCard(data);
     cardContainer.addItem(card);
     popupCard.close();})
-    
+  .finally(() => { popupCard.renderLoading(false); })
   });
   
   const popupAvatar = new PopupWithForm(selectors.popupAvatar, (data) => {
+    popupAvatar.renderLoading(true);
     api.setAvatar(data)
     .then(res => { userInfo.setAvatar(res); })
     .then(() => { popupAvatar.close(); })
+    .finally(() => { popupAvatar.renderLoading(false); })
   });
   
   const popupImage = new PopupWithImage(selectors.popupPicture);

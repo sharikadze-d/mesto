@@ -36,11 +36,10 @@ const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenCardAdditionPopup = document.querySelector('.profile__add-button');
 const buttonAvatar = document.querySelector('.profile__avatar-wrapper');
 
-const avatar = buttonAvatar.querySelector('.profile__avatar');
-
 //Формы
 const formElementProfile = document.querySelector('.popup__form[name="profile-input-form"]');
 const formElementCard = document.querySelector('.popup__form[name="add-card-input-form"]');
+const formElementAvatar = document.querySelector('.popup__form[name="avatar-input-form"]');
 
 export {
   apiConfig,
@@ -50,6 +49,6 @@ export {
   buttonOpenCardAdditionPopup,
   formElementProfile,
   formElementCard,
+  formElementAvatar,
   buttonAvatar,
-  avatar
 };

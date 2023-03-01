@@ -36,4 +36,12 @@ export default class Popup {
       }
     })
   }
+
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._buttonSubmit.textContent = this._buttonSubmit.dataset.buttonLoadingText;
+    } else {
+      this._buttonSubmit.textContent = this._buttonSubmit.dataset.buttonText;
+    }
+  }
 }
