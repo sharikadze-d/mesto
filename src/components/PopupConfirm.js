@@ -7,11 +7,13 @@ export default class PopupConfirm extends Popup {
     this._form = this._popup.querySelector('.popup__form');
   }
 
+  //Изменение родительского метода открытия попапа с передачей в него карточки для удаления
   open(item) {
     this.item = item;
     super.open();
   }
 
+  //Изменение родительского метода установления слушателей
   setEventListeners() {
     super.setEventListeners();
 

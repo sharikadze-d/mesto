@@ -28,12 +28,14 @@ export default class Card {
     this._likeCounter = this._card.querySelector('.element__like-counter');
   }
 
+  //Проверка является ли пользователь владельцем карточки
   _checkOwner() {
     if (this._owner !== USER_ID) {
       this._buttonDelete.remove();
     }
   }
 
+  //Проверка лайкал ли пользователь карточку
   _checkLike() {
     let like = false;
     this._likes.forEach(user => {
@@ -45,14 +47,17 @@ export default class Card {
     return like;
   }
 
+  //Добавление лайка
   _addLike() {
     this._buttonLike.classList.add('element__like-btn_active');
   }
 
+  //Снятие лайка
   _removeLike() {
     this._buttonLike.classList.remove('element__like-btn_active');
   }
 
+  //Выбор добавления/снятия лайка и установка количества лайков
   toggleLike(count) {
     this.setLikesCount(count);
 
@@ -65,6 +70,7 @@ export default class Card {
     this.isLiked = !this.isLiked
   }
 
+  //Установка количества лайков
   setLikesCount(count) {
     this._likeCounter.textContent = count;
   }
@@ -78,11 +84,6 @@ export default class Card {
 
     if (this.isLiked) { this._addLike() }
   }
-
-  // //Обработка нажатия кнопки "лайк"
-  // _handleLikeCard() {
-  //   this._buttonLike.classList.toggle('element__like-btn_active');
-  // }
 
   //Удаление карточки
   delete() {
@@ -99,6 +100,7 @@ export default class Card {
     })
   }
 
+  //Получение данных карточки
   getCardData() {
     const data = {};
     data.link = this._link;

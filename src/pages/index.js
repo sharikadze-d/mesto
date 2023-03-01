@@ -18,33 +18,16 @@ import {
   buttonAvatar,} from '../utils/constants.js';
 import PopupConfirm from '../components/PopupConfirm';
 
-  const api = new Api(apiConfig);
-  let cardContainer;
-  api.getInitialCardsData()
-  .then(data => {
-    //Создание экзмепляра класса Section(контейнер карточек)
-  cardContainer = new Section( { 
-  items: data, 
-  renderer: (item) => { //Функция обработчик добавления карточки на страницу
-    const card = generateCard(item);
-    cardContainer.addItem(card);
-    }},
-    selectors.container);
-
-//Рендер карточек "из коробки"
-    cardContainer.addInitialItems();
-  })
-
 //Генерация карточки
 function generateCard(item) {
   const card = new Card(item, selectors.cardTemplateId, {
     handleCardClick: () => { //Функция обработчик клика по картинке
             popupImage.open(card.getCardData());
     },
-    handleDeleteClick: () => {
-      popupDeleteConfirm.open(card);
+    handleDeleteClick: () => { //Функция обработчик клика по иконке "удалить"
+      popupDeleteConfirm.open(card); //Открытие попапа подтверждения удаления
     },
-    handleLikeClick: () => {
+    handleLikeClick: () => { //Функция обработчик клика на "лайк"
       if (!card.isLiked) {
         api.addLike(card)
         .then(res => {
@@ -57,10 +40,6 @@ function generateCard(item) {
     }});
   return card.createCard();
 } 
-//Создание экземпляра класса FormValidator для каждой формы
-const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
-const formCardValidator = new FormValidator(validationConfig, formElementCard);
-const formAvatarValidator = new FormValidator(validationConfig, formElementAvatar);
 
 //Функция активации валидации для обеих форм на странице
 function enablePageValidation() {
@@ -69,29 +48,46 @@ function enablePageValidation() {
   formAvatarValidator.enableValidation();
 }
 
+//Создание экземпляра класса Api
+const api = new Api(apiConfig);
+let cardContainer; //Объявление, чтобы контейнер остался в глобальной области видимости
+api.getInitialCardsData()
+.then(data => {
+  //Создание экзмепляра класса Section(контейнер карточек)
+  cardContainer = new Section( { 
+  items: data, //Массив с данными карточек с сервера
+  renderer: (item) => { //Функция обработчик добавления карточки на страницу
+    const card = generateCard(item);
+    cardContainer.addItem(card);
+    }},
+    selectors.container);
+
+  //Рендер карточек "из коробки"
+  cardContainer.addInitialItems();
+  })
+
+//Создание экземпляра класса FormValidator для каждой формы
+const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
+const formCardValidator = new FormValidator(validationConfig, formElementCard);
+const formAvatarValidator = new FormValidator(validationConfig, formElementAvatar);
+
 //Создание экземпляра класса UserInfo(информация профиля) и загрузка данных с сервера
 const userInfo = new UserInfo({
   nameSelector: selectors.nameField,
   jobSelector: selectors.jobField,
   avatarSelector: selectors.avatar});
 
-  api.getUserData()
+  api.getUserData() //Получение данных профиля с сервера
   .then(data => {
     userInfo.setUserInfo(data);
   })
   .catch(() => {
     console.log(new Error('Ошибка загрузки'));
   })
-
-  const popupDeleteConfirm = new PopupConfirm(selectors.popupConfirm,  (item) => {
-    popupDeleteConfirm.renderLoading(true);
-    api.deleteCard(item)
-    .then(card => card.delete())
-    .finally(() => { popupDeleteConfirm.renderLoading(false); })
-  });
   
-  //Создание экзмепляров соответсвующих классов для каждого модального окна
-  const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
+//Создание экзмепляров соответсвующих классов для каждого модального окна
+/*------------------------------------------------------------------------*/
+const popupProfile = new PopupWithForm(selectors.popupProfile, (data) => {
   popupProfile.renderLoading(true);
   api.setUserData(data)
   .then((data) => {
@@ -99,7 +95,6 @@ const userInfo = new UserInfo({
     popupProfile.close();
   })
   .finally(() => { popupProfile.renderLoading(false); })
-  
 });
 
 const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
@@ -112,15 +107,23 @@ const popupCard = new PopupWithForm(selectors.popupCard, (data) => {
   .finally(() => { popupCard.renderLoading(false); })
   });
   
-  const popupAvatar = new PopupWithForm(selectors.popupAvatar, (data) => {
-    popupAvatar.renderLoading(true);
-    api.setAvatar(data)
-    .then(res => { userInfo.setAvatar(res); })
-    .then(() => { popupAvatar.close(); })
-    .finally(() => { popupAvatar.renderLoading(false); })
+const popupAvatar = new PopupWithForm(selectors.popupAvatar, (data) => {
+  popupAvatar.renderLoading(true);
+  api.setAvatar(data)
+  .then(res => { userInfo.setAvatar(res); })
+  .then(() => { popupAvatar.close(); })
+  .finally(() => { popupAvatar.renderLoading(false); })
+  });
+
+const popupDeleteConfirm = new PopupConfirm(selectors.popupConfirm,  (item) => {
+  popupDeleteConfirm.renderLoading(true);
+  api.deleteCard(item)
+  .then(card => card.delete())
+  .finally(() => { popupDeleteConfirm.renderLoading(false); })
   });
   
-  const popupImage = new PopupWithImage(selectors.popupPicture);
+const popupImage = new PopupWithImage(selectors.popupPicture);
+/*------------------------------------------------------------------------*/
   
   //Добавление слушателей на все модальные окна
   popupProfile.setEventListeners();

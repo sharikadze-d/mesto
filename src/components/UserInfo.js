@@ -21,6 +21,7 @@ export default class UserInfo {
     this.setAvatar({ avatar });
   }
 
+  //Метод установки аватара на странице
   setAvatar({ avatar }) {
     this._avatar.src = avatar;
   }

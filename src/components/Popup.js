@@ -37,6 +37,7 @@ export default class Popup {
     })
   }
 
+  //Отображение процесса загрузки
   renderLoading(isLoading) {
     if (isLoading) {
       this._buttonSubmit.textContent = this._buttonSubmit.dataset.buttonLoadingText;
