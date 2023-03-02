@@ -12,8 +12,8 @@ export default class Card {
     this._owner = owner._id;
     this._id = _id;
     this._handleLikeClick = handleLikeClick;
-    this.isLiked = this._checkLike();
     this._userId = pageOwner;
+    this.isLiked = this._checkLike();
   }
   
   //Получение шаблона карторчки и всех нужных элементов
