@@ -1,8 +1,6 @@
-const USER_ID = '2d53711114e6a31d868fcd5b';
-
 export default class Card {
 
-  constructor({name, link, likes, owner, _id}, templateSelector,
+  constructor({name, link, likes, owner, _id}, templateSelector, pageOwner,
      { handleCardClick, handleDeleteClick, handleLikeClick }) {
     this._templateSelector = templateSelector;
     this._name = name;
@@ -15,6 +13,7 @@ export default class Card {
     this._id = _id;
     this._handleLikeClick = handleLikeClick;
     this.isLiked = this._checkLike();
+    this._userId = pageOwner;
   }
   
   //Получение шаблона карторчки и всех нужных элементов
@@ -30,7 +29,7 @@ export default class Card {
 
   //Проверка является ли пользователь владельцем карточки
   _checkOwner() {
-    if (this._owner !== USER_ID) {
+    if (this._owner !== this._userId) {
       this._buttonDelete.remove();
     }
   }
@@ -39,9 +38,8 @@ export default class Card {
   _checkLike() {
     let like = false;
     this._likes.forEach(user => {
-      if (user._id === USER_ID) {
+      if (user._id === this._userId) {
         like = true;
-        return;
       }
     });
     return like;

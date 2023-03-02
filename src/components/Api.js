@@ -57,7 +57,10 @@ export default class Api {
     })
     .then((res) => {
       if (res.ok) {
-        return item;
+        return item; //Код не дублируется. 
+        //handleResponse в случае успеха возвращает ответ с сервера,
+        //а в данном случае возвращается аргумент, переданный в deleteCard,
+        //т.е. сама карточка. Поэтому не использовалась handleResponse
       }
       return Promise.reject(new Error(`Ошибка: ${res.status}`));
     });

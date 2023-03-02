@@ -3,6 +3,7 @@ export default class UserInfo {
     this._name = document.querySelector(nameSelector);
     this._job = document.querySelector(jobSelector);
     this._avatar = document.querySelector(avatarSelector);
+    this.id;
   }
 
   //Метод получение данных профиля со страницы
@@ -15,10 +16,11 @@ export default class UserInfo {
   }
 
   //Метод установки данных профиля на странице из передаваемого объекта
-  setUserInfo({ name, about, avatar }) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._name.textContent = name;
     this._job.textContent = about;
     this.setAvatar({ avatar });
+    this.id = _id;
   }
 
   //Метод установки аватара на странице
