@@ -52,31 +52,26 @@ function enablePageValidation() {
 const api = new Api(apiConfig);
 let cardContainer; //Объявление, чтобы контейнер остался в глобальной области видимости
 
-Promise.all([
-  api.getUserData() //Получение данных профиля с сервера
-  .then(data => {
-    userInfo.setUserInfo(data);
-  })
-  .catch(() => {
-    console.log(new Error('Ошибка загрузки'));
-  }),
-    
-  api.getInitialCardsData()
-  .then(data => {
-    //Создание экзмепляра класса Section(контейнер карточек)
-    cardContainer = new Section( { 
-      items: data, //Массив с данными карточек с сервера
-      renderer: (item) => { //Функция обработчик добавления карточки на страницу
-        const card = generateCard(item);
-        cardContainer.addItem(card);
-      }},
-      selectors.container);
+Promise.all([api.getUserData(), api.getInitialCardsData()])
+      .then(data => {
+        //Получение данных профиля с сервера
+        userInfo.setUserInfo(data[0])
+        //Создание экзмепляра класса Section(контейнер карточек)
+        cardContainer = new Section( { 
+          items: data[1], //Массив с данными карточек с сервера
+          renderer: (item) => { //Функция обработчик добавления карточки на страницу
+          const card = generateCard(item);
+          cardContainer.addItem(card);
+        }},
+        selectors.container);
 
-  //Рендер карточек "из коробки"
-  cardContainer.addInitialItems();
-  })
-]);
-
+        //Рендер карточек "из коробки"
+        cardContainer.addInitialItems();
+      })
+      .catch(() => {
+        console.log(new Error('Ошибка загрузки'));
+      });
+      
 //Создание экземпляра класса FormValidator для каждой формы
 const formProfileValidator = new FormValidator(validationConfig, formElementProfile);
 const formCardValidator = new FormValidator(validationConfig, formElementCard);

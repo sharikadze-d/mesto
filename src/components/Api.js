@@ -1,5 +1,6 @@
 const handleResponse = res => { //Обработка ответа
   if (res.ok) {
+    if (res.item) { return res.item };
     return res.json();
   }
   return Promise.reject(new Error(`Ошибка: ${res.status}`));
@@ -56,14 +57,10 @@ export default class Api {
       method: 'DELETE'
     })
     .then((res) => {
-      if (res.ok) {
-        return item; //Код не дублируется. 
-        //handleResponse в случае успеха возвращает ответ с сервера,
-        //а в данном случае возвращается аргумент, переданный в deleteCard,
-        //т.е. сама карточка. Поэтому не использовалась handleResponse
-      }
-      return Promise.reject(new Error(`Ошибка: ${res.status}`));
-    });
+      res.item = item;
+      return res;
+    })
+    .then(handleResponse)
   }
 
   //Отправка на сервер данных о нажатии на "лайк"
